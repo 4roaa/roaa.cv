@@ -1,1 +1,1214 @@
-dfhgjvhmb
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roaa Sultan | مطورة ويب احترافية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6C63FF;
+            --primary-dark: #564FD4;
+            --secondary: #FF6584;
+            --accent: #36D6E7;
+            --text: #2D2D2D;
+            --text-light: #5A5A5A;
+            --light: #F8F9FC;
+            --dark: #121212;
+            --card-bg: #FFFFFF;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --border-radius: 16px;
+            --main-gradient: linear-gradient(135deg, #6C63FF 0%, #36D6E7 100%);
+            --secondary-gradient: linear-gradient(135deg, #FF6584 0%, #FF9E6D 100%);
+            --accent-gradient: linear-gradient(135deg, #8A2BE2 0%, #FF6584 100%);
+        }
+
+        .dark-mode {
+            --primary: #837DFF;
+            --primary-dark: #6C63FF;
+            --secondary: #FF8FA3;
+            --accent: #4CE3F7;
+            --text: #F0F0F0;
+            --text-light: #B0B0B0;
+            --light: #1A1A1A;
+            --dark: #0D0D0D;
+            --card-bg: #242424;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--text);
+            font-family: 'Tajawal', sans-serif;
+            line-height: 1.7;
+            overflow-x: hidden;
+            transition: var(--transition);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* شريط التقدم */
+        .progress-container {
+            width: 100%;
+            height: 4px;
+            background: transparent;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10000;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: var(--main-gradient);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* عناصر التحكم */
+        .controls {
+            display: flex;
+            justify-content: flex-end;
+            padding: 1.5rem;
+            gap: 1rem;
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            z-index: 9999;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--card-bg);
+            color: var(--text);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            font-size: 0.9rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--main-gradient);
+            opacity: 0;
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+            color: white;
+        }
+
+        .btn:hover::before {
+            opacity: 1;
+        }
+
+        /* الهيدر */
+        header {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: var(--main-gradient);
+            color: white;
+        }
+
+        .particles-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+        }
+
+        .header-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            padding: 2rem;
+            max-width: 800px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s forwards 0.5s;
+        }
+
+        .logo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 3.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: pulse 3s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 0.8rem;
+            font-weight: 800;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .subtitle {
+            font-size: 1.6rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .contact-info a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-info a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        /* الأقسام */
+        section {
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+            color: var(--primary);
+            position: relative;
+            padding-bottom: 1.5rem;
+            font-size: 2.8rem;
+            font-weight: 700;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .section-title.visible {
+            animation: fadeInUp 0.8s forwards;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: var(--main-gradient);
+            border-radius: 3px;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 5px;
+            background: var(--secondary);
+            border-radius: 3px;
+            opacity: 0.7;
+        }
+
+        /* البطاقات */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .card.visible {
+            animation: fadeInUp 0.8s forwards;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--main-gradient);
+        }
+
+        .card:hover {
+            transform: translateY(-10px) rotate(1deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .dark-mode .card {
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* الشبكات */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .skill-category {
+            margin-bottom: 2rem;
+        }
+
+        .skill-category h3 {
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .skill-category h3 i {
+            color: var(--secondary);
+            font-size: 1.8rem;
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .skill-item {
+            background: var(--main-gradient);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--secondary-gradient);
+            opacity: 0;
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-5px) scale(1.05);
+        }
+
+        .skill-item:hover::before {
+            opacity: 1;
+        }
+
+        /* الخط الزمني */
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background: var(--main-gradient);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 3px;
+        }
+
+        .timeline-item {
+            padding: 20px 50px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            animation: slideInLeft 0.8s forwards;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            animation: slideInRight 0.8s forwards;
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-100px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(100px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .timeline-content {
+            padding: 30px;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .timeline-content::after {
+            content: '';
+            position: absolute;
+            top: 30px;
+            width: 25px;
+            height: 25px;
+            background: var(--card-bg);
+            transform: rotate(45deg);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::after {
+            right: -12px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::after {
+            left: -12px;
+        }
+
+        .timeline-date {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .timeline-title {
+            margin-bottom: 1rem;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        /* المشاريع */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+        }
+
+        .project-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .project-card.visible {
+            animation: fadeInUp 0.8s forwards;
+        }
+
+        .project-card:hover {
+            transform: translateY(-15px) rotate(2deg);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .project-img {
+            height: 220px;
+            width: 100%;
+            background: var(--main-gradient);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3.5rem;
+        }
+
+        .project-img::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 0%, var(--dark) 100%);
+            opacity: 0.3;
+            transition: var(--transition);
+        }
+
+        .project-card:hover .project-img::after {
+            opacity: 0.1;
+        }
+
+        .project-content {
+            padding: 2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-title {
+            margin-bottom: 1rem;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .project-desc {
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+            flex-grow: 1;
+            line-height: 1.6;
+        }
+
+        .project-link {
+            display: inline-block;
+            padding: 1rem 2rem;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            text-align: center;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--secondary-gradient);
+            opacity: 0;
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .project-link:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .project-link:hover::before {
+            opacity: 1;
+        }
+
+        .color-btn-1 { background: var(--main-gradient); }
+        .color-btn-2 { background: var(--secondary-gradient); }
+        .color-btn-3 { background: var(--accent-gradient); }
+
+        /* الفوتر */
+        footer {
+            background: var(--accent-gradient);
+            color: white;
+            text-align: center;
+            padding: 4rem 0;
+            margin-top: 4rem;
+            clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%);
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.8rem;
+            transition: var(--transition);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-links a:hover {
+            transform: translateY(-8px) scale(1.1);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* تأثيرات متقدمة */
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 20s infinite linear;
+        }
+
+        .shape-1 {
+            width: 100px;
+            height: 100px;
+            background: var(--primary);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            top: 20%;
+            left: 10%;
+            animation-duration: 25s;
+        }
+
+        .shape-2 {
+            width: 150px;
+            height: 150px;
+            background: var(--secondary);
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            top: 60%;
+            right: 10%;
+            animation-duration: 20s;
+            animation-delay: -10s;
+        }
+
+        .shape-3 {
+            width: 80px;
+            height: 80px;
+            background: var(--accent);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            bottom: 20%;
+            left: 20%;
+            animation-duration: 30s;
+            animation-delay: -5s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(20px, 40px) rotate(90deg); }
+            50% { transform: translate(0, 80px) rotate(180deg); }
+            75% { transform: translate(-20px, 40px) rotate(270deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* الوسائط المتجاوبة */
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 3rem;
+            }
+            
+            .subtitle {
+                font-size: 1.4rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: flex-end;
+            }
+            
+            .logo {
+                width: 120px;
+                height: 120px;
+                font-size: 2.5rem;
+            }
+
+            .card {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
+    <div class="controls">
+        <button id="theme-toggle" class="btn">
+            <i class="fas fa-moon"></i> وضع ليلي
+        </button>
+        <button id="language-toggle" class="btn">
+            <i class="fas fa-language"></i> English
+        </button>
+    </div>
+
+    <header>
+        <div class="particles-container" id="particles-container"></div>
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+        
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-code"></i>
+            </div>
+            <h1 id="header-name">رواء سلطان</h1>
+            <p class="subtitle" id="header-title">مطورة ويب كاملة Stack</p>
+            <div class="contact-info">
+                <a href="tel:+966566439605"><i class="fas fa-phone"></i> <span id="phone">+966566439605</span></a>
+                <a href="mailto:Roaalhameed@Gmail.com"><i class="fas fa-envelope"></i> <span id="email">Roaalhameed@Gmail.com</span></a>
+                <a href="https://www.linkedin.com/in/roaasultan" target="_blank"><i class="fab fa-linkedin"></i> <span id="linkedin">LinkedIn</span></a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="about">
+            <h2 class="section-title" id="about-title">نبذة عني</h2>
+            <div class="card">
+                <p id="about-content">مطورة ويب كاملة متعددة المهارات مع خبرة واسعة في تقنيات الواجهات الأمامية والخلفية، شغوفة ببناء تطبيعات فعالة وقابلة للتطوير وتركز على المستخدم. شغوفة بالتعلم المستمر وتطبيق الأطر الحديثة لحل المشكلات الواقعية. لدي خبرة عملية في تطوير مشاريع كاملة من خلال برنامج تدريبي في مدينة الملك فهد الطبية ومبادراتي الخاصة، مع خبرة في C# وقواعد بيانات SQL. أنا ماهرة في التعاون في بيئات agile وتحويل الأفكار إلى حلول ويب عملية وعالية الأداء.</p>
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2 class="section-title" id="skills-title">المهارات</h2>
+            <div class="skills-container">
+                <div class="card">
+                    <div class="skill-category">
+                        <h3><i class="fas fa-paint-brush"></i> <span id="frontend-title">واجهات أمامية</span></h3>
+                        <div class="skill-list">
+                            <span class="skill-item">HTML/CSS</span>
+                            <span class="skill-item">JavaScript</span>
+                            <span class="skill-item">Bootstrap</span>
+                            <span class="skill-item">React</span>
+                            <span class="skill-item">Vue.js</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="skill-category">
+                        <h3><i class="fas fa-server"></i> <span id="backend-title">واجهات خلفية</span></h3>
+                        <div class="skill-list">
+                            <span class="skill-item">C#</span>
+                            <span class="skill-item">ASP.NET</span>
+                            <span class="skill-item">Node.js</span>
+                            <span class="skill-item">PHP</span>
+                            <span class="skill-item">Python</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="skill-category">
+                        <h3><i class="fas fa-database"></i> <span id="database-title">قواعد البيانات</span></h3>
+                        <div class="skill-list">
+                            <span class="skill-item">MySQL</span>
+                            <span class="skill-item">SQL Server</span>
+                            <span class="skill-item">MongoDB</span>
+                            <span class="skill-item">PostgreSQL</span>
+                            <span class="skill-item">Oracle</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="skill-category">
+                        <h3><i class="fas fa-users"></i> <span id="soft-skills-title">مهارات شخصية</span></h3>
+                        <div class="skill-list">
+                            <span class="skill-item" id="problem-solving">حل المشكلات</span>
+                            <span class="skill-item" id="teamwork">العمل الجماعي</span>
+                            <span class="skill-item" id="fast-learner">التعلم السريع</span>
+                            <span class="skill-item">إدارة الوقت</span>
+                            <span class="skill-item">التواصل الفعال</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience">
+            <h2 class="section-title" id="experience-title">الخبرات</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date"><i class="far fa-calendar-alt"></i> 2023 - الحاضر</div>
+                        <h3 class="timeline-title" id="job1-title">مديرة قسم تكنولوجيا المعلومات</h3>
+                        <p id="job1-company">شركة Smartcat (عمل عن بعد)</p>
+                        <p id="job1-desc">المساهمة في المشاريع الرقمية وتقديم الدعم الفني عن بعد. تقديم الدعم الفني وحل المشكلات للمنصات القائمة على الويب وطلبات العملاء. المشاركة في اجتماعات الفريق عن بعد والحفاظ على اتصال واضح باستخدام أدوات إدارة المشاريع.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date"><i class="far fa-calendar-alt"></i> أبريل 2023 - يوليو 2023</div>
+                        <h3 class="timeline-title" id="job2-title">موظفة استقبال</h3>
+                        <p id="job2-company">Aloha Spa</p>
+                        <p id="job2-desc">الدعم الفني والإداري للمهام اليومية. تنظيم المواعيد والرد على الاستفسارات. إدارة وسائل التواصل الاجتماعي.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date"><i class="far fa-calendar-alt"></i> 2023 - 2025</div>
+                        <h3 class="timeline-title" id="internship-title">مطورة ويب متدربة</h3>
+                        <p id="internship-company">مدينة الملك فهد الطبية، الرياض</p>
+                        <p id="internship-desc">تطوير نظام إلكتروني للتصاريح. تنفيذ عمليات CRUD وربط البيانات. تصميم واجهات المستخدم باستخدام ASP.NET. تصدير التقارير بصيغ PDF و Excel.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="education">
+            <h2 class="section-title" id="education-title">التعليم</h2>
+            <div class="card">
+                <h3 id="degree">دبلوم في علوم الحاسب - برمجة</h3>
+                <p id="university">جامعة الأميرة نورة بنت عبدالرحمن (PNU)</p>
+                <p id="education-date">2023 - 2025</p>
+            </div>
+            <div class="card">
+                <h3 id="certificate-title">English for IT 1</h3>
+                <p id="certificate-org">Cisco Networking Academy بالتعاون مع OpenEDG</p>
+                <p id="certificate-date">نوفمبر 2024</p>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2 class="section-title" id="projects-title">المشاريع</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-img">
+                        <i class="fas fa-file-invoice"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title" id="project1-title">نظام التصاريح الإلكتروني</h3>
+                        <p class="project-desc" id="project1-desc">نظام إلكتروني لإدارة التصاريح والمراجعات باستخدام ASP.NET وقواعد البيانات.</p>
+                        <a href="#" class="project-link color-btn-1" id="project1-link">عرض المشروع</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-img">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title" id="project2-title">منصة إدارة المهام</h3>
+                        <p class="project-desc" id="project2-desc">منصة لإدارة المهام والمشاريع مع واجهة مستخدم تفاعلية وتقارير متقدمة.</p>
+                        <a href="#" class="project-link color-btn-2" id="project2-link">عرض المشروع</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-img">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title" id="project3-title">موقع شخصي تفاعلي</h3>
+                        <p class="project-desc" id="project3-desc">موقع شخصي تفاعلي يعرض المهارات والخبرات مع وضع ليلي ونهاري ونسختين لغويتين.</p>
+                        <a href="#" class="project-link color-btn-3" id="project3-link">عرض المشروع</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p id="footer-text">© 2024 رواء سلطان. جميع الحقوق محفوظة.</p>
+                <div class="social-links">
+                    <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/roaasultan" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-codepen"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // تهيئة المتغيرات
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const body = document.body;
+        const languageToggleBtn = document.getElementById('language-toggle');
+        let isEnglish = false;
+
+        // إنشاء جسيمات متحركة في الخلفية
+        function createParticles() {
+            const container = document.getElementById('particles-container');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // تحديد عشوائي للحجم والموضع
+                const size = Math.random() * 5 + 2;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.opacity = Math.random() * 0.5 + 0.1;
+                particle.style.animation = `float ${Math.random() * 20 + 10}s infinite ease-in-out`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                
+                container.appendChild(particle);
+            }
+        }
+
+        // التبديل بين الوضع الليلي والنهاري
+        themeToggleBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i> وضع نهاري';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i> وضع ليلي';
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // تحميل الوضع المحفوظ
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            body.classList.add('dark-mode');
+            themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i> وضع نهاري';
+        }
+
+        // النصوص العربية
+        const arabicText = {
+            headerName: 'رواء سلطان',
+            headerTitle: 'مطورة ويب كاملة Stack',
+            phone: '+966566439605',
+            email: 'Roaalhameed@Gmail.com',
+            linkedin: 'LinkedIn',
+            aboutTitle: 'نبذة عني',
+            aboutContent: 'مطورة ويب كاملة متعددة المهارات مع خبرة واسعة في تقنيات الواجهات الأمامية والخلفية، شغوفة ببناء تطبيعات فعالة وقابلة للتطوير وتركز على المستخدم. شغوفة بالتعلم المستمر وتطبيق الأطر الحديثة لحل المشكلات الواقعية. لدي خبرة عملية في تطوير مشاريع كاملة من خلال برنامج تدريبي في مدينة الملك فهد الطبية ومبادراتي الخاصة، مع خبرة في C# وقواعد بيانات SQL. أنا ماهرة في التعاون في بيئات agile وتحويل الأفكار إلى حلول ويب عملية وعالية الأداء.',
+            skillsTitle: 'المهارات',
+            frontendTitle: 'واجهات أمامية',
+            backendTitle: 'واجهات خلفية',
+            databaseTitle: 'قواعد البيانات',
+            softSkillsTitle: 'مهارات شخصية',
+            problemSolving: 'حل المشكلات',
+            teamwork: 'العمل الجماعي',
+            fastLearner: 'التعلم السريع',
+            experienceTitle: 'الخبرات',
+            job1Title: 'مديرة قسم تكنولوجيا المعلومات',
+            job1Company: 'شركة Smartcat (عمل عن بعد)',
+            job1Desc: 'المساهمة في المشاريع الرقمية وتقديم الدعم الفني عن بعد. تقديم الدعم الفني وحل المشكلات للمنصات القائمة على الويب وطلبات العملاء. المشاركة في اجتماعات الفريق عن بعد والحفاظ على اتصال واضح باستخدام أدوات إدارة المشاريع.',
+            job2Title: 'موظفة استقبال',
+            job2Company: 'Aloha Spa',
+            job2Desc: 'الدعم الفني والإداري للمهام اليومية. تنظيم المواعيد والرد على الاستفسارات. إدارة وسائل التواصل الاجتماعي.',
+            internshipTitle: 'مطورة ويب متدربة',
+            internshipCompany: 'مدينة الملك فهد الطبية، الرياض',
+            internshipDesc: 'تطوير نظام إلكتروني للتصاريح. تنفيذ عمليات CRUD وربط البيانات. تصميم واجهات المستخدم باستخدام ASP.NET. تصدير التقارير بصيغ PDF و Excel.',
+            educationTitle: 'التعليم',
+            degree: 'دبلوم في علوم الحاسب - برمجة',
+            university: 'جامعة الأميرة نورة بنت عبدالرحمن (PNU)',
+            educationDate: '2023 - 2025',
+            certificateTitle: 'English for IT 1',
+            certificateOrg: 'Cisco Networking Academy بالتعاون مع OpenEDG',
+            certificateDate: 'نوفمبر 2024',
+            projectsTitle: 'المشاريع',
+            project1Title: 'نظام التصاريح الإلكتروني',
+            project1Desc: 'نظام إلكتروني لإدارة التصاريح والمراجعات باستخدام ASP.NET وقواعد البيانات.',
+            project1Link: 'عرض المشروع',
+            project2Title: 'منصة إدارة المهام',
+            project2Desc: 'منصة لإدارة المهام والمشاريع مع واجهة مستخدم تفاعلية وتقارير متقدمة.',
+            project2Link: 'عرض المشروع',
+            project3Title: 'موقع شخصي تفاعلي',
+            project3Desc: 'موقع شخصي تفاعلي يعرض المهارات والخبرات مع وضع ليلي ونهاري ونسختين لغويتين.',
+            project3Link: 'عرض المشروع',
+            footerText: '© 2024 رواء سلطان. جميع الحقوق محفوظة.'
+        };
+
+        // النصوص الإنجليزية
+        const englishText = {
+            headerName: 'Roaa Sultan',
+            headerTitle: 'Full Stack Web Developer',
+            phone: '+966566439605',
+            email: 'Roaalhameed@Gmail.com',
+            linkedin: 'LinkedIn',
+            aboutTitle: 'About Me',
+            aboutContent: 'A multi-skilled full-stack web developer with extensive experience in front-end and back-end technologies, passionate about building efficient, scalable, and user-centric applications. Passionate about continuous learning and applying modern frameworks to solve real-world problems. I have hands-on experience developing full-stack projects through a training program at King Fahad Medical City and my own initiatives, with expertise in C# and SQL databases. I am adept at collaborating in agile environments and transforming ideas into practical, high-performance web solutions.',
+            skillsTitle: 'Skills',
+            frontendTitle: 'Frontend',
+            backendTitle: 'Backend',
+            databaseTitle: 'Databases',
+            softSkillsTitle: 'Soft Skills',
+            problemSolving: 'Problem-solving',
+            teamwork: 'Teamwork',
+            fastLearner: 'Fast learner',
+            experienceTitle: 'Experience',
+            job1Title: 'IT Department Manager',
+            job1Company: 'Smartcat Company (Remote Work)',
+            job1Desc: 'Contributing to digital projects and providing technical support remotely. Provided technical support and troubleshooting for web-based platforms and client requests. Participated in remote team meetings and maintained clear communication using project management tools.',
+            job2Title: 'Receptionist',
+            job2Company: 'Aloha Spa',
+            job2Desc: 'Technical and administrative support for daily tasks. Organizing appointments and responding to inquiries. Social media management.',
+            internshipTitle: 'Full Stack Web Developer Intern',
+            internshipCompany: 'King Fahad Medical City, Riyadh',
+            internshipDesc: 'Developed electronic system for permit and clearance. Performed CRUD operations and data linking. UI design with ASP.NET. Exported reports in PDF and Excel formats.',
+            educationTitle: 'Education',
+            degree: 'Diploma in Computer Science - Programming',
+            university: 'Princess Nourah bint Abdulrahman University (PNU)',
+            educationDate: '2023 - 2025',
+            certificateTitle: 'English for IT 1',
+            certificateOrg: 'Cisco Networking Academy in collaboration with OpenEDG',
+            certificateDate: 'November 2024',
+            projectsTitle: 'Projects',
+            project1Title: 'Electronic Permit System',
+            project1Desc: 'Electronic system for managing permits and clearances using ASP.NET and databases.',
+            project1Link: 'View Project',
+            project2Title: 'Task Management Platform',
+            project2Desc: 'Platform for managing tasks and projects with interactive UI and advanced reports.',
+            project2Link: 'View Project',
+            project3Title: 'Interactive Portfolio Website',
+            project3Desc: 'Interactive personal website showcasing skills and experiences with dark/light mode and bilingual support.',
+            project3Link: 'View Project',
+            footerText: '© 2024 Roaa Sultan. All rights reserved.'
+        };
+
+        // التبديل بين اللغات
+        languageToggleBtn.addEventListener('click', () => {
+            isEnglish = !isEnglish;
+            const currentText = isEnglish ? englishText : arabicText;
+            
+            // تحديث النصوص
+            document.getElementById('header-name').textContent = currentText.headerName;
+            document.getElementById('header-title').textContent = currentText.headerTitle;
+            document.getElementById('phone').textContent = currentText.phone;
+            document.getElementById('email').textContent = currentText.email;
+            document.getElementById('linkedin').textContent = currentText.linkedin;
+            document.getElementById('about-title').textContent = currentText.aboutTitle;
+            document.getElementById('about-content').textContent = currentText.aboutContent;
+            document.getElementById('skills-title').textContent = currentText.skillsTitle;
+            document.getElementById('frontend-title').textContent = currentText.frontendTitle;
+            document.getElementById('backend-title').textContent = currentText.backendTitle;
+            document.getElementById('database-title').textContent = currentText.databaseTitle;
+            document.getElementById('soft-skills-title').textContent = currentText.softSkillsTitle;
+            document.getElementById('problem-solving').textContent = currentText.problemSolving;
+            document.getElementById('teamwork').textContent = currentText.teamwork;
+            document.getElementById('fast-learner').textContent = currentText.fastLearner;
+            document.getElementById('experience-title').textContent = currentText.experienceTitle;
+            document.getElementById('job1-title').textContent = currentText.job1Title;
+            document.getElementById('job1-company').textContent = currentText.job1Company;
+            document.getElementById('job1-desc').textContent = currentText.job1Desc;
+            document.getElementById('job2-title').textContent = currentText.job2Title;
+            document.getElementById('job2-company').textContent = currentText.job2Company;
+            document.getElementById('job2-desc').textContent = currentText.job2Desc;
+            document.getElementById('internship-title').textContent = currentText.internshipTitle;
+            document.getElementById('internship-company').textContent = currentText.internshipCompany;
+            document.getElementById('internship-desc').textContent = currentText.internshipDesc;
+            document.getElementById('education-title').textContent = currentText.educationTitle;
+            document.getElementById('degree').textContent = currentText.degree;
+            document.getElementById('university').textContent = currentText.university;
+            document.getElementById('education-date').textContent = currentText.educationDate;
+            document.getElementById('certificate-title').textContent = currentText.certificateTitle;
+            document.getElementById('certificate-org').textContent = currentText.certificateOrg;
+            document.getElementById('certificate-date').textContent = currentText.certificateDate;
+            document.getElementById('projects-title').textContent = currentText.projectsTitle;
+            document.getElementById('project1-title').textContent = currentText.project1Title;
+            document.getElementById('project1-desc').textContent = currentText.project1Desc;
+            document.getElementById('project1-link').textContent = currentText.project1Link;
+            document.getElementById('project2-title').textContent = currentText.project2Title;
+            document.getElementById('project2-desc').textContent = currentText.project2Desc;
+            document.getElementById('project2-link').textContent = currentText.project2Link;
+            document.getElementById('project3-title').textContent = currentText.project3Title;
+            document.getElementById('project3-desc').textContent = currentText.project3Desc;
+            document.getElementById('project3-link').textContent = currentText.project3Link;
+            document.getElementById('footer-text').textContent = currentText.footerText;
+            
+            // تغيير اتجاه الصفحة
+            document.documentElement.dir = isEnglish ? 'ltr' : 'rtl';
+            document.documentElement.lang = isEnglish ? 'en' : 'ar';
+            
+            // تحديث نص الزر
+            languageToggleBtn.innerHTML = isEnglish ? 
+                '<i class="fas fa-language"></i> العربية' : 
+                '<i class="fas fa-language"></i> English';
+                
+            // حفظ اللغة المختارة
+            localStorage.setItem('language', isEnglish ? 'en' : 'ar');
+        });
+
+        // تحميل اللغة المحفوظة
+        const savedLanguage = localStorage.getItem('language');
+        if (savedLanguage === 'en') {
+            languageToggleBtn.click();
+        }
+
+        // شريط التقدم
+        window.onscroll = function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("progress-bar").style.width = scrolled + "%";
+        };
+
+        // تأثيرات الظهور عند التمرير
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section-title, .card, .timeline-item, .project-card').forEach(el => {
+            observer.observe(el);
+        });
+
+        // تهيئة الجسيمات عند تحميل الصفحة
+        window.addEventListener('load', () => {
+            createParticles();
+            
+            // إضافة تأثير ظهور تدريجي للصفحة
+            document.body.style.opacity = '1';
+        });
+
+        // تعتيم الجسم تدريجياً عند التحميل
+        document.body.style.opacity = '0';
+        document.body.style.transition = 'opacity 0.8s ease';
+    </script>
+</body>
+</html>

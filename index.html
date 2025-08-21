@@ -607,6 +607,44 @@
             box-shadow: 0 10px 25px rgba(187, 156, 192, 0.4);
         }
         
+        .project-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .project-buttons a {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .secondary-btn {
+            background: transparent;
+            color: var(--dark-color);
+            border: 2px solid var(--dark-color);
+        }
+        
+        .secondary-btn:hover {
+            background: var(--dark-color);
+            color: white;
+        }
+        
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+            margin-top: 1.5rem;
+        }
+        
+        .tech-tag {
+            background: rgba(187, 156, 192, 0.1);
+            color: var(--dark-color);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
         /* قسم الخبرة */
         .experience-container {
             max-width: 900px;
@@ -928,7 +966,6 @@
             }
             100% {
                 transform: scale(1);
-                box-shadow: 0 5px极简
                 box-shadow: 0 5px 15px rgba(187, 156, 192, 0.3);
             }
         }
@@ -947,6 +984,10 @@
             
             .contact-info {
                 justify-content: center;
+            }
+            
+            .project-buttons {
+                flex-direction: column;
             }
         }
         
@@ -1108,68 +1149,114 @@
                 <p data-translate="projects-subtitle">أحدث المشاريع التي قمت بتطويرها باستخدام أحدث التقنيات</p>
             </div>
             <div class="projects-grid">
-                <!-- مشروع نظام التصاريح الإلكتروني -->
-                <div class="project-card">
-                    <div class="project-img">
-                        <i class="fas fa-file-contract"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3 data-translate="project1-title">نظام التصاريح الإلكتروني</h3>
-                        <p data-translate="project1-desc">نظام إلكتروني متكامل لإدارة التصاريح والتخليص، تم تطويره خلال فترة التدريب في مدينة الملك فهد الطبية.</p>
-                        <div class="project-details">
-                            <h4 data-translate="project1-tasks">المهام والمسؤوليات:</h4>
-                            <ul>
-                                <li data-translate="project1-task1">تطوير نظام إلكتروني للتصاريح والتخلیص</li>
-                                <li data-translate="project1-task2">تنفیذ عملیات CRUD وربط البیانات</li>
-                                <li data-translate="project1-task3">تصمیم واجهة المستخدم باستخدام ASP.NET</li>
-                                <li data-translate="project1-task4">تصدیر التقاریر بصیغ PDF و Excel</li>
-                            </ul>
-                        </div>
-                        <a href="#" class="project-link" data-translate="view-project">عرض المشروع</a>
-                    </div>
-                </div>
-                
                 <!-- مشروع منصة إدارة العائلة -->
                 <div class="project-card">
                     <div class="project-img">
                         <i class="fas fa-home-heart"></i>
                     </div>
                     <div class="project-content">
-                        <h3 data-translate="project2-title">منصة إدارة العائلة</h3>
-                        <p data-translate="project2-desc">منصة متكاملة لإدارة شؤون العائلة من ناحية الأفراد والإدارة المالية، مع تطبيق أندroid مخصص للعائلة.</p>
+                        <h3 data-translate="project1-title">منصة إدارة العائلة</h3>
+                        <p data-translate="project1-desc">منصة ويب متكاملة لإدارة شؤون العائلة مع نظام تقويم عائلي، إدارة المصاريف، وكتابة الملاحظات لأفراد العائلة.</p>
                         <div class="project-details">
-                            <h4 data-translate="project2-features">المميزات الرئيسية:</h4>
+                            <h4 data-translate="project1-features">المميزات الرئيسية:</h4>
                             <ul>
-                                <li data-translate="project2-feature1">إدارة أفراد العائلة ومعلوماتهم</li>
-                                <li data-translate="project2-feature2">نظام متكامل للإدارة المالية للعائلة</li>
-                                <li data-translate="project2-feature3">تطبيق أندرويد مخصص للعائلة</li>
-                                <li data-translate="project2-feature4">مزامنة البيانات بين جميع الأجهزة</li>
-                                <li data-translate="project2-feature5">تقارير مالية وتنبيهات للمصروفات</li>
+                                <li data-translate="project1-feature1">نظام التقويم العائلي للمناسبات والأحداث</li>
+                                <li data-translate="project1-feature2">نظام متكامل لإدارة مصاريف العائلة</li>
+                                <li data-translate="project1-feature3">مساحة لكتابة الملاحظات والمهام لأفراد العائلة</li>
+                                <li data-translate="project1-feature4">مزامنة البيانات بين جميع أفراد العائلة</li>
+                                <li data-translate="project1-feature5">تقارير مالية وتنبيهات للمصروفات</li>
                             </ul>
+                        </div>
+                        <div class="tech-tags">
+                            <span class="tech-tag">HTML/CSS</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">PHP</span>
+                            <span class="tech-tag">MySQL</span>
                         </div>
                         <a href="#" class="project-link" data-translate="view-project">عرض المشروع</a>
                     </div>
                 </div>
                 
-                <!-- مشروع منصة إدارة المهام -->
+                <!-- مشروع تطبيق العائلة على أندرويد -->
                 <div class="project-card">
                     <div class="project-img">
-                        <i class="fas fa-tasks"></i>
+                        <i class="fab fa-android"></i>
                     </div>
                     <div class="project-content">
-                        <h3 data-translate="project3-title">منصة إدارة المهام</h3>
-                        <p data-translate="project3-desc">منصة كاملة لإدارة المهام والمشاريع باستخدام تقنيات الويب الحديثة.</p>
+                        <h3 data-translate="project2-title">تطبيق العائلة على أندرويد</h3>
+                        <p data-translate="project2-desc">تطبيق أندرويد لإدارة شؤون العائلة مع ميزات التقويم العائلي، إدارة المصاريف، والملاحظات.</p>
                         <div class="project-details">
-                            <h4 data-translate="project3-features">المميزات:</h4>
+                            <h4 data-translate="project2-features">المميزات الرئيسية:</h4>
                             <ul>
-                                <li data-translate="project3-feature1">إنشاء وإدارة المهام والمشاريع</li>
-                                <li data-translate="project3-feature2">تعيين المهام لأعضاء الفريق</li>
-                                <li data-translate="project3-feature3">تتبع تقدم المشاريع</li>
-                                <li data-translate="project3-feature4">تقارير أداء وإنتاجية</li>
-                                <li data-translate="project3-feature5">واجهة مستخدم بديهية وسهلة الاستخدام</li>
+                                <li data-translate="project2-feature1">واجهة مستخدم بديهية وسهلة الاستخدام</li>
+                                <li data-translate="project2-feature2">نظام التقويم العائلي المتكامل</li>
+                                <li data-translate="project2-feature3">إدارة المصاريف والتقارير المالية</li>
+                                <li data-translate="project2-feature4">مساحة لكتابة الملاحظات والمهام</li>
+                                <li data-translate="project2-feature5">مزامنة البيانات مع منصة الويب</li>
                             </ul>
                         </div>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Android Studio</span>
+                            <span class="tech-tag">Java</span>
+                            <span class="tech-tag">Firebase</span>
+                            <span class="tech-tag">SQLite</span>
+                        </div>
                         <a href="#" class="project-link" data-translate="view-project">عرض المشروع</a>
+                    </div>
+                </div>
+                
+                <!-- مشروع التدريب في مدينة الملك فهد الطبية -->
+                <div class="project-card">
+                    <div class="project-img">
+                        <i class="fas fa-file-contract"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3 data-translate="project3-title">نظام التصاريح الإلكتروني - مدينة الملك فهد الطبية</h3>
+                        <p data-translate="project3-desc">نظام إلكتروني متكامل لإدارة التصاريح والتخليص، تم تطويره خلال فترة التدريب في مدينة الملك فهد الطبية.</p>
+                        <div class="project-details">
+                            <h4 data-translate="project3-tasks">المهام والمسؤوليات:</h4>
+                            <ul>
+                                <li data-translate="project3-task1">تطوير نظام إلكتروني للتصاريح والتخلیص</li>
+                                <li data-translate="project3-task2">تنفیذ عملیات CRUD وربط البیانات</li>
+                                <li data-translate="project3-task3">تصمیم واجهة المستخدم باستخدام ASP.NET</li>
+                                <li data-translate="project3-task4">تصدیر التقاریر بصیغ PDF و Excel</li>
+                            </ul>
+                        </div>
+                        <div class="tech-tags">
+                            <span class="tech-tag">ASP.NET</span>
+                            <span class="tech-tag">C#</span>
+                            <span class="tech-tag">SQL Server</span>
+                            <span class="tech-tag">JavaScript</span>
+                        </div>
+                        <a href="#" class="project-link" data-translate="view-project">عرض المشروع</a>
+                    </div>
+                </div>
+                
+                <!-- مشروع GitHub -->
+                <div class="project-card">
+                    <div class="project-img">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3 data-translate="project4-title">إدارة المشاريع على GitHub</h3>
+                        <p data-translate="project4-desc">مشروع يوضح خبرتي في إدارة المشاريع البرمجية باستخدام نظام التحكم بالإصدارات Git ومنصة GitHub.</p>
+                        <div class="project-details">
+                            <h4 data-translate="project4-features">المهارات المتعلقة:</h4>
+                            <ul>
+                                <li data-translate="project4-feature1">إدارة الإصدارات باستخدام Git</li>
+                                <li data-translate="project4-feature2">رفع الأكواد وإدارة المستودعات على GitHub</li>
+                                <li data-translate="project4-feature3">إدارة الفروع وعمليات الدمج (Merge)</li>
+                                <li data-translate="project4-feature4">التعاون مع المطورين الآخرين على المنصة</li>
+                                <li data-translate="project4-feature5">إدارة المشكلات (Issues) وطلبات السحب (Pull Requests)</li>
+                            </ul>
+                        </div>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Git</span>
+                            <span class="tech-tag">GitHub</span>
+                            <span class="tech-tag">Version Control</span>
+                            <span class="tech-tag">Collaboration</span>
+                        </div>
+                        <a href="#" class="project-link" data-translate="view-project">عرض المشاريع</a>
                     </div>
                 </div>
             </div>
@@ -1409,31 +1496,40 @@
                 'projects-title': 'My Projects',
                 'projects-subtitle': 'Latest projects developed using the latest technologies',
                 
-                'project1-title': 'Electronic Permits System',
-                'project1-desc': 'A comprehensive electronic system for managing permits and clearance, developed during training at King Fahad Medical City.',
-                'project1-tasks': 'Tasks and Responsibilities:',
-                'project1-task1': 'Developing an electronic system for permits and clearance',
-                'project1-task2': 'Implementing CRUD operations and data linking',
-                'project1-task3': 'Designing user interface using ASP.NET',
-                'project1-task4': 'Exporting reports in PDF and Excel formats',
+                'project1-title': 'Family Management Platform',
+                'project1-desc': 'A comprehensive web platform for managing family affairs with a family calendar, expense management, and notes for family members.',
+                'project1-features': 'Key Features:',
+                'project1-feature1': 'Family calendar system for occasions and events',
+                'project1-feature2': 'Integrated system for family expense management',
+                'project1-feature3': 'Space for writing notes and tasks for family members',
+                'project1-feature4': 'Data synchronization between all family members',
+                'project1-feature5': 'Financial reports and expense alerts',
                 
-                'project2-title': 'Family Management Platform',
-                'project2-desc': 'A complete platform for managing family affairs in terms of members and financial management, with a dedicated Android app for the family.',
+                'project2-title': 'Family Android Application',
+                'project2-desc': 'An Android application for managing family affairs with family calendar features, expense management, and notes.',
                 'project2-features': 'Key Features:',
-                'project2-feature1': 'Managing family members and their information',
-                'project2-feature2': 'Integrated system for family financial management',
-                'project2-feature3': 'Dedicated Android app for the family',
-                'project2-feature4': 'Data synchronization between all devices',
-                'project2-feature5': 'Financial reports and expense alerts',
+                'project2-feature1': 'Intuitive and easy-to-use user interface',
+                'project2-feature2': 'Integrated family calendar system',
+                'project2-feature3': 'Expense management and financial reports',
+                'project2-feature4': 'Space for writing notes and tasks',
+                'project2-feature5': 'Data synchronization with the web platform',
                 
-                'project3-title': 'Task Management Platform',
-                'project3-desc': 'A complete platform for managing tasks and projects using modern web technologies.',
-                'project3-features': 'Features:',
-                'project3-feature1': 'Creating and managing tasks and projects',
-                'project3-feature2': 'Assigning tasks to team members',
-                'project3-feature3': 'Tracking project progress',
-                'project3-feature4': 'Performance and productivity reports',
-                'project3-feature5': 'Intuitive and easy-to-use user interface',
+                'project3-title': 'Electronic Permits System - King Fahad Medical City',
+                'project3-desc': 'A comprehensive electronic system for managing permits and clearance, developed during training at King Fahad Medical City.',
+                'project3-tasks': 'Tasks and Responsibilities:',
+                'project3-task1': 'Developing an electronic system for permits and clearance',
+                'project3-task2': 'Implementing CRUD operations and data linking',
+                'project3-task3': 'Designing user interface using ASP.NET',
+                'project3-task4': 'Exporting reports in PDF and Excel formats',
+                
+                'project4-title': 'Project Management on GitHub',
+                'project4-desc': 'A project demonstrating my experience in managing software projects using Git version control system and GitHub platform.',
+                'project4-features': 'Related Skills:',
+                'project4-feature1': 'Version management using Git',
+                'project4-feature2': 'Uploading codes and managing repositories on GitHub',
+                'project4-feature3': 'Managing branches and merge operations',
+                'project4-feature4': 'Collaborating with other developers on the platform',
+                'project4-feature5': 'Managing issues and pull requests',
                 
                 'view-project': 'View Project',
                 

@@ -3,640 +3,1766 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smartcat - الرئيسية</title>
+    <title>رؤى سلطان | مطورة ويب كاملة</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #0056b3;
-            --secondary-color: #ff6b00;
-            --dark-color: #333;
-            --light-color: #f8f9fa;
-            --gray-color: #6c757d;
+            --primary: #6C63FF;
+            --primary-dark: #564FD8;
+            --secondary: #36B3A4;
+            --dark: #2D2B4A;
+            --light: #F8F9FC;
+            --gray: #6C757D;
+            --transition: all 0.3s ease;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --radius: 12px;
+            --header-height: 80px;
         }
-        
+
+        [data-theme="dark"] {
+            --primary: #817BFF;
+            --primary-dark: #6C63FF;
+            --secondary: #44D4C2;
+            --dark: #F8F9FC;
+            --light: #1E1E2E;
+            --gray: #ADB5BD;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
-            background-color: var(--light-color);
-            color: var(--dark-color);
+            font-family: 'Tajawal', 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
             line-height: 1.6;
+            transition: var(--transition);
+            overflow-x: hidden;
         }
-        
-        /* التنسيق العام */
+
+        body[dir="ltr"] {
+            font-family: 'Poppins', 'Tajawal', sans-serif;
+        }
+
         .container {
-            width: 90%;
+            width: 100%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 15px;
+            padding: 0 20px;
         }
-        
-        .section-padding {
-            padding: 80px 0;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-        
-        .section-title h2 {
-            font-size: 2.2rem;
-            color: var(--primary-color);
-            margin-bottom: 15px;
-            position: relative;
-            display: inline-block;
-        }
-        
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
-            background-color: var(--secondary-color);
-        }
-        
-        .section-title p {
-            color: var(--gray-color);
-            max-width: 700px;
-            margin: 0 auto;
-            font-size: 1.1rem;
-        }
-        
-        .btn {
-            display: inline-block;
-            background-color: var(--primary-color);
-            color: white;
-            padding: 12px 30px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-        }
-        
-        .btn:hover {
-            background-color: #004494;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        .btn-secondary {
-            background-color: var(--secondary-color);
-        }
-        
-        .btn-secondary:hover {
-            background-color: #e05a00;
-        }
-        
-        /* الشعار والتنقل */
-        header {
-            background-color: #fff;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-            padding: 15px 0;
-            position: sticky;
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
             top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
             z-index: 1000;
+            transition: var(--transition);
+            height: var(--header-height);
         }
-        
-        .header-content {
+
+        [data-theme="dark"] .navbar {
+            background: rgba(30, 30, 46, 0.95);
+        }
+
+        .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            height: 100%;
         }
-        
-        .logo-placeholder {
-            width: 200px;
-            height: 60px;
-            background-color: #f1f1f1;
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
             display: flex;
             align-items: center;
-            justify-content: center;
-            border: 2px dashed #ccc;
-            color: #999;
-            font-size: 14px;
         }
-        
-        nav ul {
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-links {
             display: flex;
             list-style: none;
         }
-        
-        nav ul li {
-            margin-left: 25px;
-            position: relative;
+
+        .nav-links li {
+            margin: 0 1rem;
         }
-        
-        nav ul li a {
+
+        .nav-links a {
             text-decoration: none;
-            color: var(--dark-color);
-            font-weight: 500;
-            transition: color 0.3s;
-            padding: 10px 0;
-            display: block;
-        }
-        
-        nav ul li a:hover {
-            color: var(--primary-color);
-        }
-        
-        nav ul li a.active {
-            color: var(--primary-color);
+            color: var(--dark);
             font-weight: 600;
+            transition: var(--transition);
+            position: relative;
+            padding: 0.5rem 0;
         }
-        
-        nav ul li a.active::after {
+
+        .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
+            width: 0;
             height: 3px;
-            background-color: var(--primary-color);
+            bottom: 0;
+            right: 0;
+            background: var(--primary);
+            transition: var(--transition);
         }
-        
-        .mobile-menu-btn {
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .theme-toggle, .language-toggle {
+            background: none;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            background-color: rgba(108, 99, 255, 0.1);
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover, .language-toggle:hover {
+            background-color: rgba(108, 99, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        .mobile-toggle {
             display: none;
             background: none;
             border: none;
             font-size: 1.5rem;
+            color: var(--dark);
             cursor: pointer;
-            color: var(--dark-color);
         }
-        
-        /* قسم البطل */
+
+        /* Hero Section */
         .hero {
-            background: linear-gradient(to right, rgba(0, 86, 179, 0.8), rgba(0, 86, 179, 0.9)), url('https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            text-align: center;
-            padding: 120px 0;
+            padding: calc(var(--header-height) + 2rem) 0 5rem;
+            position: relative;
+            overflow: hidden;
         }
-        
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary), var(--primary-dark));
+            opacity: 0.05;
+            top: -250px;
+            right: -250px;
+            z-index: -1;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--secondary), #44D4C2);
+            opacity: 0.05;
+            bottom: -150px;
+            left: -150px;
+            z-index: -1;
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 3rem;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
         .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            animation: fadeInUp 1s ease;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
         }
-        
+
+        .hero .title {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
         .hero p {
-            font-size: 1.3rem;
-            max-width: 800px;
-            margin: 0 auto 40px;
-            animation: fadeInUp 1.2s ease;
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            max-width: 90%;
+            color: var(--gray);
         }
-        
+
         .hero-buttons {
             display: flex;
-            justify-content: center;
-            gap: 20px;
-            animation: fadeInUp 1.4s ease;
+            gap: 1rem;
+            flex-wrap: wrap;
         }
-        
-        /* قسم الخدمات */
-        .services {
-            background-color: #fff;
-        }
-        
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .service-card {
-            background-color: var(--light-color);
-            border-radius: 10px;
-            padding: 30px;
-            text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .service-card i {
-            font-size: 3.5rem;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-        }
-        
-        .service-card h3 {
-            margin-bottom: 15px;
-            color: var(--dark-color);
-            font-size: 1.5rem;
-        }
-        
-        .service-card p {
-            color: var(--gray-color);
-            margin-bottom: 20px;
-        }
-        
-        .service-link {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 600;
+
+        .btn {
             display: inline-flex;
             align-items: center;
-            transition: color 0.3s;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
         }
-        
-        .service-link:hover {
-            color: var(--secondary-color);
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 10px 20px rgba(108, 99, 255, 0.25);
         }
-        
-        .service-link i {
-            font-size: 1rem;
-            margin-right: 5px;
-            margin-bottom: 0;
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(108, 99, 255, 0.3);
         }
-        
-        /* قسم العملاء */
-        .clients {
-            background-color: var(--light-color);
-            text-align: center;
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
         }
-        
-        .clients-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 30px;
-            align-items: center;
+
+        .btn-secondary:hover {
+            background: rgba(108, 99, 255, 0.1);
         }
-        
-        .client-logo {
-            background-color: white;
-            height: 100px;
+
+        .profile-img {
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 10px;
-            padding: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s;
+            color: white;
+            font-size: 5rem;
+            box-shadow: 0 20px 40px rgba(108, 99, 255, 0.25);
+            position: relative;
+            overflow: hidden;
         }
-        
-        .client-logo:hover {
-            transform: scale(1.05);
+
+        .profile-img::before {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite linear;
         }
-        
-        .client-logo-placeholder {
+
+        @keyframes shine {
+            from {
+                transform: translateX(-100%) rotate(45deg);
+            }
+            to {
+                transform: translateX(100%) rotate(45deg);
+            }
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .section-title p {
+            color: var(--gray);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            color: var(--gray);
+        }
+
+        .about-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(108, 99, 255, 0.05);
+            padding: 1rem;
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+
+        .info-item:hover {
+            background: rgba(108, 99, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(108, 99, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .info-content h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+            color: var(--dark);
+        }
+
+        .info-content p {
+            margin: 0;
+            color: var(--gray);
+        }
+
+        .about-image {
+            display: flex;
+            justify-content: center;
+        }
+
+        .about-img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            aspect-ratio: 1/1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        /* Skills Section */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-top: 4px solid var(--primary);
+        }
+
+        [data-theme="dark"] .skill-category {
+            background: #2A2A3C;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .skill-category h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .skill-category h3 i {
+            color: var(--primary);
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-item {
+            margin-bottom: 1.2rem;
+            padding: 1rem;
+            background: rgba(108, 99, 255, 0.05);
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+
+        .skill-item:hover {
+            background: rgba(108, 99, 255, 0.1);
+        }
+
+        .skill-name {
+            font-weight: 600;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skill-name i {
+            color: var(--primary);
+        }
+
+        /* Experience Section */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: var(--primary);
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            background: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            width: calc(50% - 2rem);
+            position: relative;
+            transition: var(--transition);
+            border-top: 4px solid var(--primary);
+        }
+
+        [data-theme="dark"] .timeline-content {
+            background: #2A2A3C;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-right: 2rem;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: 2rem;
+        }
+
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            position: absolute;
+            top: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-dot {
+            left: calc(50% - 10px);
+        }
+
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: calc(50% - 10px);
+        }
+
+        .timeline-date {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 120px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 20px;
+            font-weight: 600;
+            position: absolute;
+            top: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .timeline-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .timeline-content h4 {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .timeline-content p {
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+
+        .timeline-list {
+            list-style: none;
+        }
+
+        .timeline-list li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-right: 1.5rem;
+        }
+
+        .timeline-list li::before {
+            content: '▹';
+            position: absolute;
+            right: 0;
+            color: var(--primary);
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-top: 4px solid var(--primary);
+        }
+
+        [data-theme="dark"] .project-card {
+            background: #2A2A3C;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            background-color: #f1f1f1;
+            background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.1));
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            color: var(--dark);
+        }
+
+        .project-content p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tag {
+            background: rgba(108, 99, 255, 0.1);
+            color: var(--primary);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .project-link {
+            background: var(--primary);
+            color: white;
+        }
+
+        .project-link:hover {
+            background: var(--primary-dark);
+        }
+
+        .project-github {
+            background: transparent;
+            color: var(--dark);
+            border: 2px solid var(--dark);
+        }
+
+        [data-theme="dark"] .project-github {
+            color: var(--light);
+            border: 2px solid var(--light);
+        }
+
+        .project-github:hover {
+            background: rgba(108, 99, 255, 0.1);
+        }
+
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            background: rgba(108, 99, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+
+        .contact-item:hover {
+            background: rgba(108, 99, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(108, 99, 255, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #999;
-            font-size: 14px;
+            color: var(--primary);
+            font-size: 1.5rem;
+            transition: var(--transition);
         }
-        
-        /* الفوتر */
-        footer {
-            background-color: var(--dark-color);
+
+        .contact-item:hover .contact-icon {
+            background: var(--primary);
             color: white;
-            padding: 60px 0 20px;
+            transform: scale(1.1);
         }
-        
+
+        .contact-details h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .contact-details p {
+            color: var(--gray);
+        }
+
+        .contact-form {
+            background: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border-top: 4px solid var(--primary);
+        }
+
+        [data-theme="dark"] .contact-form {
+            background: #2A2A3C;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid rgba(108, 99, 255, 0.2);
+            border-radius: var(--radius);
+            background: transparent;
+            color: var(--dark);
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .submit-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(108, 99, 255, 0.25);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--dark), #3A3A5A);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
         .footer-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
+            gap: 3rem;
+            margin-bottom: 3rem;
         }
-        
-        .footer-column h3 {
-            margin-bottom: 20px;
-            font-size: 1.3rem;
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .footer-about p {
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-links h3, .footer-contact h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
             position: relative;
-            padding-bottom: 10px;
+            padding-bottom: 0.8rem;
         }
-        
-        .footer-column h3::after {
+
+        .footer-links h3::after, .footer-contact h3::after {
             content: '';
             position: absolute;
             bottom: 0;
             left: 0;
             width: 50px;
-            height: 2px;
-            background-color: var(--secondary-color);
+            height: 3px;
+            background: var(--primary);
+            border-radius: 3px;
         }
-        
-        .footer-column p {
-            margin-bottom: 20px;
-            color: #ddd;
-        }
-        
-        .footer-column ul {
+
+        .footer-links ul {
             list-style: none;
         }
-        
-        .footer-column ul li {
-            margin-bottom: 12px;
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
         }
-        
-        .footer-column ul li a {
-            color: #ddd;
-            text-decoration: none;
-            transition: color 0.3s;
-            display: inline-flex;
-            align-items: center;
-        }
-        
-        .footer-column ul li a:hover {
-            color: var(--secondary-color);
-        }
-        
-        .footer-column ul li a i {
-            margin-left: 8px;
-            font-size: 0.9rem;
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
+
+        .footer-links a {
             color: white;
-            transition: all 0.3s;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
-        
-        .social-links a:hover {
-            background-color: var(--secondary-color);
-            transform: translateY(-3px);
+
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--primary);
+            padding-right: 0.5rem;
         }
-        
+
+        .footer-contact p {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .footer-contact i {
+            color: var(--primary);
+        }
+
         .copyright {
             text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #444;
-            color: #ddd;
-            font-size: 0.9rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
         }
-        
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
+
+        /* Responsive Design */
+        @media screen and (max-width: 992px) {
+            .hero-content {
+                flex-direction: column-reverse;
+                text-align: center;
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* Responsive design */
-        @media (max-width: 992px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
+
             .hero p {
-                font-size: 1.1rem;
+                margin: 0 auto 2.5rem;
             }
-        }
-        
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            nav ul {
-                margin-top: 15px;
-                flex-wrap: wrap;
+
+            .hero-buttons {
                 justify-content: center;
             }
-            
-            nav ul li {
-                margin: 0 10px 10px;
+
+            .about-content {
+                grid-template-columns: 1fr;
             }
-            
-            .hero {
-                padding: 80px 0;
-            }
-            
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-                position: absolute;
-                top: 20px;
+
+            .timeline::before {
                 left: 20px;
             }
-            
+
+            .timeline-item {
+                flex-direction: row !important;
+            }
+
+            .timeline-content {
+                width: calc(100% - 70px);
+                margin-left: 70px !important;
+                margin-right: 0 !important;
+            }
+
+            .timeline-dot {
+                left: 20px !important;
+            }
+
+            .timeline-date {
+                left: 20px;
+                width: 100px;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: var(--header-height);
+                right: -100%;
+                width: 250px;
+                height: calc(100vh - var(--header-height));
+                background: white;
+                flex-direction: column;
+                padding: 2rem;
+                transition: var(--transition);
+                box-shadow: var(--shadow);
+            }
+
+            [data-theme="dark"] .nav-links {
+                background: #2A2A3C;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links li {
+                margin: 1rem 0;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero .title {
+                font-size: 1.5rem;
+            }
+
+            .profile-img {
+                width: 280px;
+                height: 280px;
+                font-size: 4rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .about-info {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media screen and (max-width: 576px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero .title {
+                font-size: 1.3rem;
+            }
+
+            .profile-img {
+                width: 220px;
+                height: 220px;
+                font-size: 3rem;
+            }
+
+            .btn {
+                padding: 0.8rem 1.5rem;
+            }
+
             .section-title h2 {
                 font-size: 1.8rem;
             }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
         }
-        
-        @media (max-width: 576px) {
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-            
-            .section-padding {
-                padding: 60px 0;
-            }
-            
-            .service-card {
-                padding: 20px;
-            }
+
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Language Specific Styles */
+        body[dir="ltr"] .navbar {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body[dir="ltr"] .hero {
+            text-align: left;
+        }
+
+        body[dir="ltr"] .hero p {
+            margin-left: 0;
+        }
+
+        body[dir="ltr"] .hero-buttons {
+            justify-content: flex-start;
+        }
+
+        body[dir="ltr"] .timeline-list li {
+            padding-right: 0;
+            padding-left: 1.5rem;
+        }
+
+        body[dir="ltr"] .timeline-list li::before {
+            right: auto;
+            left: 0;
+        }
+
+        body[dir="ltr"] .footer-links h3::after,
+        body[dir="ltr"] .footer-contact h3::after {
+            left: auto;
+            right: 0;
+        }
+
+        body[dir="ltr"] .footer-links a:hover {
+            padding-right: 0;
+            padding-left: 0.5rem;
         }
     </style>
 </head>
 <body>
-    <!-- الرأس -->
-    <header>
-        <div class="container">
-            <button class="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="header-content">
-                <div class="logo-placeholder">
-                    مساحة لإضافة الشعار
-                </div>
-                <nav>
-                    <ul>
-                        <li><a href="index.html" class="active">الرئيسية</a></li>
-                        <li><a href="services.html">خدماتنا</a></li>
-                        <li><a href="projects.html">مشاريعنا</a></li>
-                        <li><a href="about.html">عن الشركة</a></li>
-                        <li><a href="contact.html">اتصل بنا</a></li>
-                    </ul>
-                </nav>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">R<span>S</span></a>
+            <ul class="nav-links">
+                <li><a href="#about" data-translate="nav-about">نبذة</a></li>
+                <li><a href="#skills" data-translate="nav-skills">المهارات</a></li>
+                <li><a href="#experience" data-translate="nav-experience">الخبرة</a></li>
+                <li><a href="#projects" data-translate="nav-projects">المشاريع</a></li>
+                <li><a href="#contact" data-translate="nav-contact">التواصل</a></li>
+            </ul>
+            <div class="nav-controls">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="language-toggle" id="languageToggle">
+                    <i class="fas fa-globe"></i>
+                </button>
+                <button class="mobile-toggle" id="mobileToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
         </div>
-    </header>
+    </nav>
 
-    <!-- قسم البطل -->
-    <section class="hero">
-        <div class="container">
-            <h1>حلول تقنية مبتكرة لمستقبل رقمي أفضل</h1>
-            <p>نقدم خدمات وحلول تقنية متكاملة تساعد مؤسستك على النمو والازدهار في العصر الرقمي، باستخدام أحدث التقنيات وأفضل الممارسات</p>
-            <div class="hero-buttons">
-                <a href="#services" class="btn">استكشف خدماتنا</a>
-                <a href="contact.html" class="btn btn-secondary">اتصل بنا الآن</a>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1 data-translate="hero-title">رؤى سلطان</h1>
+                <div class="title" data-translate="hero-subtitle">مطورة ويب كاملة</div>
+                <p data-translate="hero-description">مطورة ويب شغوفة ببناء تطبيقات ويب مبتكرة وجذابة. أجمع بين الإبداع والتقنية لإنشاء حلول رقمية استثنائية.</p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary" data-translate="hero-btn-projects">عرض المشاريع</a>
+                    <a href="#contact" class="btn btn-secondary" data-translate="hero-btn-contact">تواصل معي</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="profile-img">RS</div>
             </div>
         </div>
     </section>
 
-    <!-- قسم الخدمات -->
-    <section class="services section-padding" id="services">
+    <!-- About Section -->
+    <section id="about" class="about">
         <div class="container">
             <div class="section-title">
-                <h2>خدماتنا المميزة</h2>
-                <p>نقدم مجموعة واسعة من الخدمات التقنية المتكاملة لتلبية احتياجات عملك في العصر الرقمي</p>
+                <h2 data-translate="about-title">نبذة عني</h2>
+                <p data-translate="about-subtitle">تعرف على المزيد عن رحلتي وخبرتي</p>
             </div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <i class="fas fa-mobile-alt"></i>
-                    <h3>تطبيقات الجوال</h3>
-                    <p>نصمم ونطور تطبيقات جوال مبتكرة وسهلة الاستخدام لأنظمة iOS و Android، مع ضمان أداء عالي وتجربة مستخدم ممتازة.</p>
-                    <a href="services.html#mobile" class="service-link">المزيد من التفاصيل <i class="fas fa-arrow-left"></i></a>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3 data-translate="about-heading">مطورة ويب شغوفة بالإبداع والتقنية</h3>
+                    <p data-translate="about-p1">أنا مطورة ويب كاملة مع خبرة في بناء وتطوير الأنظمة الإلكترونية باستخدام ASP.NET، وتنفيذ عمليات CRUD، وربط البيانات مع واجهات المستخدم سهلة الاستخدام.</p>
+                    <p data-translate="about-p2">ساهمت في مشاريع أكاديمية ومهنية متنوعة، بما في ذلك نظام التخليص الشامل في مدينة الملك فهد الطبية ومنصات إدارة العائلة للويب والأندرويد.</p>
+                    <div class="about-info">
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="info-content">
+                                <h4 data-translate="about-edu-title">التعليم</h4>
+                                <p data-translate="about-edu-desc">دبلوم علوم الحاسب - البرمجة</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <div class="info-content">
+                                <h4 data-translate="about-exp-title">الخبرة</h4>
+                                <p data-translate="about-exp-desc">3+ سنوات في تطوير الويب</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-project-diagram"></i>
+                            </div>
+                            <div class="info-content">
+                                <h4 data-translate="about-projects-title">المشاريع</h4>
+                                <p data-translate="about-projects-desc">10+ مشروع مكتمل</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-language"></i>
+                            </div>
+                            <div class="info-content">
+                                <h4 data-translate="about-lang-title">اللغات</h4>
+                                <p data-translate="about-lang-desc">العربية, الإنجليزية</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="service-card">
-                    <i class="fas fa-laptop-code"></i>
-                    <h3>تطوير الويب</h3>
-                    <p>نقوم بإنشاء مواقع ويب وتطبيقات ويب متطورة وسريعة الاستجابة، باستخدام أحدث التقنيات وأفضل معايير التصميم.</p>
-                    <a href="services.html#web" class="service-link">المزيد من التفاصيل <i class="fas fa-arrow-left"></i></a>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-cloud"></i>
-                    <h3>الحلول السحابية</h3>
-                    <p>نوفر حلول سحابية متكاملة وآمنة لتخزين وإدارة بيانات عملك، مع ضمان التوفرية العالية والأمان المتقدم.</p>
-                    <a href="services.html#cloud" class="service-link">المزيد من التفاصيل <i class="fas fa-arrow-left"></i></a>
+                <div class="about-image">
+                    <div class="about-img">About Image</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- قسم العملاء -->
-    <section class="clients section-padding">
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
         <div class="container">
             <div class="section-title">
-                <h2>عملاؤنا</h2>
-                <p>نفخر بثقة العديد من الشركات والمؤسسات الرائدة في مختلف القطاعات</p>
+                <h2 data-translate="skills-title">مهاراتي</h2>
+                <p data-translate="skills-subtitle">المهارات التقنية التي أمتلكها</p>
             </div>
-            <div class="clients-grid">
-                <div class="client-logo">
-                    <div class="client-logo-placeholder">شعار العميل 1</div>
+            <div class="skills-container">
+                <div class="skill-category fade-in">
+                    <h3><i class="fas fa-code"></i> <span data-translate="skills-frontend">تطوير الواجهة الأمامية</span></h3>
+                    <div class="skill-list">
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <i class="fab fa-html5"></i> HTML/CSS
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <i class="fab fa-js-square"></i> JavaScript
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <i class="fab fa-microsoft"></i> ASP.NET
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="client-logo">
-                    <div class="client-logo-placeholder">شعار العميل 2</div>
+
+                <div class="skill-category fade-in">
+                    <h3><i class="fas fa-server"></i> <span data-translate="skills-backend">تطوير الواجهة الخلفية</span></h3>
+                    <div class="skill-list">
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <i class="fas fa-code"></i> C#
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <i class="fas fa-database"></i> CRUD Operations
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <i class="fas fa-plug"></i> API Integration
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="client-logo">
-                    <div class="client-logo-placeholder">شعار العميل 3</div>
+
+                <div class="skill-category fade-in">
+                    <h3><i class="fas fa-database"></i> <span data-translate="skills-database">قواعد البيانات</span></h3>
+                    <div class="skill-list">
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <i class="fas fa-database"></i> SQL
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <i class="fas fa-table"></i> MySQL
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <i class="fas fa-link"></i> Data Linking
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="client-logo">
-                    <div class="client-logo-placeholder">شعار العميل 4</div>
-                </div>
-                <div class="client-logo">
-                    <div class="client-logo-placeholder">شعار العميل 5</div>
-                </div>
-                <div class="client-logo">
-                    <div class="client-logo-placeholder">شعار العميل 6</div>
+
+                <div class="skill-category fade-in">
+                    <h3><i class="fas fa-tools"></i> <span data-translate="skills-other">مهارات أخرى</span></h3>
+                    <div class="skill-list">
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <i class="fab fa-git-alt"></i> Git/GitHub
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <i class="fas fa-file-pdf"></i> Report Generation
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <i class="fas fa-mobile-alt"></i> Responsive Design
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- الفوتر -->
+    <!-- Experience Section -->
+    <section id="experience" class="experience">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-translate="experience-title">الخبرة العملية</h2>
+                <p data-translate="experience-subtitle">رحلة تطوري المهني وخبراتي في مجال تطوير الويب</p>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item fade-in">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2025</div>
+                    <div class="timeline-content">
+                        <h3>مدينة الملك فهد الطبية</h3>
+                        <h4 data-translate="exp1-role">متدربة كمطورة ويب كاملة</h4>
+                        <p data-translate="exp1-duration">يناير 2025 - مايو 2025</p>
+                        <ul class="timeline-list">
+                            <li data-translate="exp1-desc1">تطوير نظام إلكتروني للتصاريح والتخليص</li>
+                            <li data-translate="exp1-desc2">تنفيذ عمليات CRUD وربط البيانات</li>
+                            <li data-translate="exp1-desc3">تصميم واجهة المستخدم باستخدام ASP.NET</li>
+                            <li data-translate="exp1-desc4">تصدير التقارير بصيغ PDF و Excel</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item fade-in">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2024</div>
+                    <div class="timeline-content">
+                        <h3>شركة Smartcat</h3>
+                        <h4 data-translate="exp2-role">مديرة قسم تكنولوجيا المعلومات</h4>
+                        <p data-translate="exp2-duration">فبراير 2024 - ديسمبر 2024</p>
+                        <ul class="timeline-list">
+                            <li data-translate="exp2-desc1">توجيه العمليات التقنية وتقديم الدعم الفني عن بعد</li>
+                            <li data-translate="exp2-desc2">المساهمة في تطوير وتنفيذ المشاريع الرقمية</li>
+                            <li data-translate="exp2-desc3">حل المشكلات التقنية المتعلقة بمنصات الويب</li>
+                            <li data-translate="exp2-desc4">المشاركة في اجتماعات الفريق عن بعد</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item fade-in">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2023</div>
+                    <div class="timeline-content">
+                        <h3>Aloha Spa</h3>
+                        <h4 data-translate="exp3-role">استقبال ودعم إداري</h4>
+                        <p data-translate="exp3-duration">أبريل 2023 - يوليو 2023</p>
+                        <ul class="timeline-list">
+                            <li data-translate="exp3-desc1">استقبال العملاء وإدارة المواعيد اليومية</li>
+                            <li data-translate="exp3-desc2">الرد على الاستفسارات وحل المشكلات الإدارية</li>
+                            <li data-translate="exp3-desc3">إدارة حسابات وسائل التواصل الاجتماعي</li>
+                            <li data-translate="exp3-desc4">تنسيق عمليات الحجز والجدولة</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-translate="projects-title">مشاريعي</h2>
+                <p data-translate="projects-subtitle">أحدث المشاريع التي قمت بتطويرها باستخدام أحدث التقنيات</p>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card fade-in">
+                    <div class="project-image">
+                        <i class="fas fa-file-contract"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3 data-translate="project1-title">نظام التصاريح الإلكتروني</h3>
+                        <p data-translate="project1-desc">نظام إلكتروني متكامل لإدارة التصاريح والتخليص، تم تطويره خلال فترة التدريب في مدينة الملك فهد الطبية.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">ASP.NET</span>
+                            <span class="tech-tag">C#</span>
+                            <span class="tech-tag">SQL Server</span>
+                            <span class="tech-tag">JavaScript</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link" data-translate="view-project">عرض المشروع</a>
+                            <a href="#" class="project-github"><i class="fab fa-github"></i> GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card fade-in">
+                    <div class="project-image">
+                        <i class="fas fa-home-heart"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3 data-translate="project2-title">منصة إدارة العائلة</h3>
+                        <p data-translate="project2-desc">منصة ويب متكاملة لإدارة شؤون العائلة مع نظام تقويم عائلي، إدارة المصاريف، وكتابة الملاحظات لأفراد العائلة.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">HTML/CSS</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">PHP</span>
+                            <span class="tech-tag">MySQL</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link" data-translate="view-project">عرض المشروع</a>
+                            <a href="#" class="project-github"><i class="fab fa-github"></i> GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card fade-in">
+                    <div class="project-image">
+                        <i class="fab fa-android"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3 data-translate="project3-title">تطبيق العائلة على أندرويد</h3>
+                        <p data-translate="project3-desc">تطبيق أندرويد لإدارة شؤون العائلة مع ميزات التقويم العائلي، إدارة المصاريف، والملاحظات.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Android Studio</span>
+                            <span class="tech-tag">Java</span>
+                            <span class="tech-tag">Firebase</span>
+                            <span class="tech-tag">SQLite</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link" data-translate="view-project">عرض المشروع</a>
+                            <a href="#" class="project-github"><i class="fab fa-github"></i> GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-translate="contact-title">التواصل</h2>
+                <p data-translate="contact-subtitle">تواصل معي للاستفسار عن مشاريعك أو فرص العمل</p>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3 data-translate="contact-phone">هاتف</h3>
+                            <p>+966566439605</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3 data-translate="contact-email">بريد إلكتروني</h3>
+                            <p>Roaaasultan@Gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fab fa-linkedin"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3 data-translate="contact-linkedin">لينكد إن</h3>
+                            <p>linkedin.com/in/roaaasultan</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3 data-translate="contact-location">موقع</h3>
+                            <p data-translate="contact-location-desc">الرياض، المملكة العربية السعودية</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name" data-translate="form-name">الاسم</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" data-translate="form-email">البريد الإلكتروني</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject" data-translate="form-subject">الموضوع</label>
+                            <input type="text" id="subject" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message" data-translate="form-message">الرسالة</label>
+                            <textarea id="message" class="form-control" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn" data-translate="form-submit">إرسال الرسالة</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-column">
-                    <h3>عن Smartcat</h3>
-                    <p>شركة رائدة في مجال الحلول التقنية والبرمجية، نقدم خدمات متكاملة تساعد businesses على النمو والازدهار في العصر الرقمي.</p>
+                <div class="footer-about">
+                    <div class="footer-logo">R<span>S</span></div>
+                    <p data-translate="footer-text">مطورة ويب كاملة شغوفة بالإبداع والتقنية</p>
                     <div class="social-links">
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
-                <div class="footer-column">
-                    <h3>روابط سريعة</h3>
+                <div class="footer-links">
+                    <h3 data-translate="footer-links">روابط سريعة</h3>
                     <ul>
-                        <li><a href="index.html"><i class="fas fa-arrow-left"></i> الرئيسية</a></li>
-                        <li><a href="services.html"><i class="fas fa-arrow-left"></i> خدماتنا</a></li>
-                        <li><a href="projects.html"><i class="fas fa-arrow-left"></i> مشاريعنا</a></li>
-                        <li><a href="about.html"><i class="fas fa-arrow-left"></i> عن الشركة</a></li>
-                        <li><a href="contact.html"><i class="fas fa-arrow-left"></i> اتصل بنا</a></li>
+                        <li><a href="#about"><i class="fas fa-chevron-left"></i> <span data-translate="nav-about">نبذة</span></a></li>
+                        <li><a href="#skills"><i class="fas fa-chevron-left"></i> <span data-translate="nav-skills">المهارات</span></a></li>
+                        <li><a href="#experience"><i class="fas fa-chevron-left"></i> <span data-translate="nav-experience">الخبرة</span></a></li>
+                        <li><a href="#projects"><i class="fas fa-chevron-left"></i> <span data-translate="nav-projects">المشاريع</span></a></li>
+                        <li><a href="#contact"><i class="fas fa-chevron-left"></i> <span data-translate="nav-contact">التواصل</span></a></li>
                     </ul>
                 </div>
-                <div class="footer-column">
-                    <h3>خدماتنا</h3>
-                    <ul>
-                        <li><a href="services.html#mobile"><i class="fas fa-arrow-left"></i> تطبيقات الجوال</a></li>
-                        <li><a href="services.html#web"><i class="fas fa-arrow-left"></i> تطوير الويب</a></li>
-                        <li><a href="services.html#cloud"><i class="fas fa-arrow-left"></i> الحلول السحابية</a></li>
-                        <li><a href="services.html#consulting"><i class="fas fa-arrow-left"></i> الاستشارات التقنية</a></li>
-                        <li><a href="services.html#marketing"><i class="fas fa-arrow-left"></i> التسويق الرقمي</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>معلومات الاتصال</h3>
-                    <ul>
-                        <li><i class="fas fa-map-marker-alt"></i> الرياض، المملكة العربية السعودية</li>
-                        <li><i class="fas fa-envelope"></i> info@smartcat.sa</li>
-                        <li><i class="fas fa-phone"></i> +966 11 123 4567</li>
-                        <li><i class="fas fa-clock"></i> الأحد - الخميس: 8 ص - 5 م</li>
-                    </ul>
+                <div class="footer-contact">
+                    <h3 data-translate="footer-contact">معلومات التواصل</h3>
+                    <p><i class="fas fa-phone"></i> +966566439605</p>
+                    <p><i class="fas fa-envelope"></i> Roaaasultan@Gmail.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> <span data-translate="contact-location-desc">الرياض، المملكة العربية السعودية</span></p>
                 </div>
             </div>
             <div class="copyright">
-                <p>جميع الحقوق محفوظة © 2023 Smartcat</p>
+                <p data-translate="copyright">© 2023 رؤى سلطان - جميع الحقوق محفوظة</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // كود الجافاسكريبت البسيط للتنقل عبر الصفحات
         document.addEventListener('DOMContentLoaded', function() {
-            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-            const nav = document.querySelector('nav ul');
+            // Mobile menu toggle
+            const mobileToggle = document.getElementById('mobileToggle');
+            const navLinks = document.querySelector('.nav-links');
             
-            mobileMenuBtn.addEventListener('click', function() {
-                nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+            mobileToggle.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
             });
             
-            // تعديل عرض القائمة عند تغيير حجم النافذة
-            window.addEventListener('resize', function() {
-                if (window.innerWidth > 768) {
-                    nav.style.display = 'flex';
+            // Theme toggle
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = themeToggle.querySelector('i');
+            
+            // Check for saved theme preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+            
+            themeToggle.addEventListener('click', function() {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                if (currentTheme === 'dark') {
+                    document.documentElement.removeAttribute('data-theme');
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
+                    localStorage.setItem('theme', 'light');
                 } else {
-                    nav.style.display = 'none';
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                    localStorage.setItem('theme', 'dark');
                 }
+            });
+            
+            // Language toggle
+            const languageToggle = document.getElementById('languageToggle');
+            
+            // English translations
+            const englishText = {
+                // Navigation
+                'nav-about': 'About',
+                'nav-skills': 'Skills',
+                'nav-experience': 'Experience',
+                'nav-projects': 'Projects',
+                'nav-contact': 'Contact',
+                
+                // Hero
+                'hero-title': 'Roaa Sultan',
+                'hero-subtitle': 'Full Stack Developer',
+                'hero-description': 'Passionate web developer building innovative and engaging web applications. I combine creativity and technology to create exceptional digital solutions.',
+                'hero-btn-projects': 'View Projects',
+                'hero-btn-contact': 'Contact Me',
+                
+                // About
+                'about-title': 'About Me',
+                'about-subtitle': 'Learn more about my journey and experience',
+                'about-heading': 'A passionate web developer with creativity and technology',
+                'about-p1': 'I am a full-stack web developer with experience in building and developing electronic systems using ASP.NET, implementing CRUD operations, and linking data with user-friendly interfaces.',
+                'about-p2': 'I have contributed to various academic and professional projects, including a comprehensive clearance system at King Fahad Medical City and family management platforms for web and Android.',
+                'about-edu-title': 'Education',
+                'about-edu-desc': 'Diploma in Computer Science - Programming',
+                'about-exp-title': 'Experience',
+                'about-exp-desc': '3+ years in web development',
+                'about-projects-title': 'Projects',
+                'about-projects-desc': '10+ completed projects',
+                'about-lang-title': 'Languages',
+                'about-lang-desc': 'Arabic, English',
+                
+                // Skills
+                'skills-title': 'Skills',
+                'skills-subtitle': 'Technical skills I possess',
+                'skills-frontend': 'Frontend Development',
+                'skills-backend': 'Backend Development',
+                'skills-database': 'Database',
+                'skills-other': 'Other Skills',
+                
+                // Experience
+                'experience-title': 'Work Experience',
+                'experience-subtitle': 'My professional journey and experiences in web development',
+                'exp1-role': 'Trainee as Full Stack Web Developer',
+                'exp1-duration': 'Jan 2025 - May 2025',
+                'exp1-desc1': 'Developed an electronic clearance and permit management system',
+                'exp1-desc2': 'Implemented CRUD operations and data linking',
+                'exp1-desc3': 'Designed user interface using ASP.NET',
+                'exp1-desc4': 'Exported reports in PDF and Excel formats',
+                'exp2-role': 'IT Department Manager',
+                'exp2-duration': 'Feb 2024 - Dec 2024',
+                'exp2-desc1': 'Directed technical operations and provided remote technical support',
+                'exp2-desc2': 'Contributed to the development and implementation of digital projects',
+                'exp2-desc3': 'Resolved technical issues related to web platforms',
+                'exp2-desc4': 'Participated in remote team meetings',
+                'exp3-role': 'Receptionist and Administrative Support',
+                'exp3-duration': 'Apr 2023 - Jul 2023',
+                'exp3-desc1': 'Welcomed clients and managed daily appointments',
+                'exp3-desc2': 'Responded to inquiries and resolved administrative issues',
+                'exp3-desc3': 'Managed social media accounts',
+                'exp3-desc4': 'Coordinated booking and scheduling processes',
+                
+                // Projects
+                'projects-title': 'My Projects',
+                'projects-subtitle': 'Latest projects developed using the latest technologies',
+                'project1-title': 'Electronic Permits System',
+                'project1-desc': 'A comprehensive electronic system for managing permits and clearance, developed during training at King Fahad Medical City.',
+                'project2-title': 'Family Management Platform',
+                'project2-desc': 'A comprehensive web platform for managing family affairs with a family calendar, expense management, and notes for family members.',
+                'project3-title': 'Family Android Application',
+                'project3-desc': 'An Android application for managing family affairs with family calendar features, expense management, and notes.',
+                'view-project': 'View Project',
+                
+                // Contact
+                'contact-title': 'Contact',
+                'contact-subtitle': 'Contact me to inquire about your projects or job opportunities',
+                'contact-phone': 'Phone',
+                'contact-email': 'Email',
+                'contact-linkedin': 'LinkedIn',
+                'contact-location': 'Location',
+                'contact-location-desc': 'Riyadh, Saudi Arabia',
+                'form-name': 'Name',
+                'form-email': 'Email',
+                'form-subject': 'Subject',
+                'form-message': 'Message',
+                'form-submit': 'Send Message',
+                
+                // Footer
+                'footer-text': 'Full stack developer passionate about creativity and technology',
+                'footer-links': 'Quick Links',
+                'footer-contact': 'Contact Info',
+                'copyright': '© 2023 Roaa Sultan - All Rights Reserved'
+            };
+            
+            // Language toggle functionality
+            languageToggle.addEventListener('click', function() {
+                const currentLang = document.documentElement.getAttribute('lang');
+                if (currentLang === 'ar') {
+                    // Switch to English
+                    document.documentElement.setAttribute('lang', 'en');
+                    document.documentElement.setAttribute('dir', 'ltr');
+                    document.body.classList.add('english');
+                    
+                    // Update all translatable elements
+                    const translatableElements = document.querySelectorAll('[data-translate]');
+                    translatableElements.forEach(element => {
+                        const key = element.getAttribute('data-translate');
+                        if (englishText[key]) {
+                            element.textContent = englishText[key];
+                        }
+                    });
+                    
+                    // Update language in localStorage
+                    localStorage.setItem('language', 'en');
+                } else {
+                    // Switch to Arabic
+                    document.documentElement.setAttribute('lang', 'ar');
+                    document.documentElement.setAttribute('dir', 'rtl');
+                    document.body.classList.remove('english');
+                    
+                    // Reload to reset to Arabic (for simplicity)
+                    location.reload();
+                }
+            });
+            
+            // Check for saved language preference
+            const savedLanguage = localStorage.getItem('language');
+            if (savedLanguage === 'en') {
+                languageToggle.click(); // Trigger click to switch to English
+            }
+            
+            // Scroll animations
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            function checkScroll() {
+                fadeElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementVisible = 150;
+                    if (elementTop < window.innerHeight - elementVisible) {
+                        element.classList.add('visible');
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', checkScroll);
+            window.addEventListener('load', checkScroll);
+            
+            // Form submission
+            const contactForm = document.getElementById('contactForm');
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('شكراً لتواصلك! سيتم الرد عليك قريباً.'); // Update for English
+                contactForm.reset();
             });
         });
     </script>

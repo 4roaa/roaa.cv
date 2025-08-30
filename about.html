@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smartcat - عن الشركة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #ff6b00;
+            --dark-color: #333;
+            --light-color: #f8f9fa;
+            --gray-color: #6c757d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        /* التنسيق العام */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .section-padding {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+        
+        .section-title p {
+            color: var(--gray-color);
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #004494;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary-color);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #e05a00;
+        }
+        
+        /* الشعار والتنقل */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo-placeholder {
+            width: 200px;
+            height: 60px;
+            background-color: #f1f1f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed #ccc;
+            color: #999;
+            font-size: 14px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+            position: relative;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 10px 0;
+            display: block;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+        
+        nav ul li a.active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        nav ul li a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark-color);
+        }
+        
+        /* قسم البطل */
+        .hero {
+            background: linear-gradient(to right, rgba(0, 86, 179, 0.8), rgba(0, 86, 179, 0.9)), url('https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 120px 0;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            animation: fadeInUp 1.2s ease;
+        }
+        
+        /* محتوى صفحة عن الشركة */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+        
+        .about-image {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .about-text h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+            color: var(--gray-color);
+            line-height: 1.8;
+        }
+        
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+        
+        .about-feature {
+            text-align: center;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .about-feature:hover {
+            transform: translateY(-10px);
+        }
+        
+        .about-feature i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .about-feature h3 {
+            color: var(--dark-color);
+            margin-bottom: 15px;
+        }
+        
+        .about-feature p {
+            color: var(--gray-color);
+        }
+        
+        /* قسم القيم */
+        .values-section {
+            padding: 80px 0;
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .value-item {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+        
+        .value-icon {
+            width: 70px;
+            height: 70px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            flex-shrink: 0;
+        }
+        
+        .value-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .value-content p {
+            color: var(--gray-color);
+            line-height: 1.8;
+        }
+        
+        /* قسم الخط الزمني */
+        .timeline-section {
+            background-color: white;
+            padding: 80px 0;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--primary-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background-color: white;
+            border: 4px solid var(--primary-color);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+        
+        .timeline-item:nth-child(odd)::after {
+            right: -13px;
+        }
+        
+        .timeline-item:nth-child(even)::after {
+            left: -13px;
+        }
+        
+        .timeline-content {
+            padding: 20px;
+            background-color: var(--light-color);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .timeline-year {
+            color: var(--secondary-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .timeline-text {
+            color: var(--gray-color);
+        }
+        
+        /* قسم الفريق */
+        .team-section {
+            background-color: white;
+            padding: 80px 0;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .team-member {
+            text-align: center;
+            background-color: var(--light-color);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+        
+        .member-image {
+            height: 300px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .team-member:hover .member-image img {
+            transform: scale(1.1);
+        }
+        
+        .member-info {
+            padding: 25px;
+        }
+        
+        .member-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            font-size: 1.4rem;
+        }
+        
+        .member-position {
+            color: var(--secondary-color);
+            font-weight: 500;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .member-contact {
+            margin: 15px 0;
+            padding: 15px 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .contact-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            color: var(--gray-color);
+        }
+        
+        .contact-info i {
+            margin-left: 10px;
+            color: var(--primary-color);
+            width: 20px;
+        }
+        
+        .contact-info a {
+            color: var(--gray-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .contact-info a:hover {
+            color: var(--primary-color);
+        }
+        
+        .member-description {
+            color: var(--gray-color);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .member-social {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .member-social a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+        
+        .member-social a:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+        
+        /* الفوتر */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--secondary-color);
+        }
+        
+        .footer-column p {
+            margin-bottom: 20px;
+            color: #ddd;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-column ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .footer-column ul li a i {
+            margin-left: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            color: #ddd;
+            font-size: 0.9rem;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 10px 10px;
+            }
+            
+            .hero {
+                padding: 80px 0;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                top: 20px;
+                left: 20px;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-item:nth-child(odd)::after, 
+            .timeline-item:nth-child(even)::after {
+                left: 18px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-padding {
+                padding: 60px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- الرأس -->
+    <header>
+        <div class="container">
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="header-content">
+                <div class="logo-placeholder">
+                    مساحة لإضافة الشعار
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">الرئيسية</a></li>
+                        <li><a href="services.html">خدماتنا</a></li>
+                        <li><a href="projects.html">مشاريعنا</a></li>
+                        <li><a href="about.html" class="active">عن الشركة</a></li>
+                        <li><a href="contact.html">اتصل بنا</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- قسم البطل -->
+    <section class="hero">
+        <div class="container">
+            <h1>عن شركة Smartcat</h1>
+            <p>اكتشف قصة تأسيسنا، رؤيتنا، رسالتنا، والقيم التي نؤمن بها ونسير عليها في كل مشاريعنا</p>
+        </div>
+    </section>
+
+    <!-- محتوى صفحة عن الشركة -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1568992687947-868a62a9f521?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="عن شركة Smartcat">
+                </div>
+                <div class="about-text">
+                    <h2>من نحن</h2>
+                    <p>شركة Smartcat هي شركة رائدة في مجال الحلول التقنية والبرمجية، تأسست عام 2015 بهدف تقديم حلول تقنية متكاملة تساعد businesses على النمو والازدهار في العصر الرقمي.</p>
+                    <p>نحن فريق من الخبراء والمتخصصين في مجال التكنولوجيا والبرمجيات، نعمل معاً لتقديم حلول تقنية مبتكرة تلبي احتياجات عملائنا وتحقق أهدافهم الاستراتيجية.</p>
+                    <p>نؤمن بأن التكنولوجيا هي المحرك الأساسي للتطور والنمو في عصرنا الحالي، ونسعى دائماً لاستخدام أحدث التقنيات والأساليب لتقديم حلول تتميز بالجودة والكفاءة.</p>
+                    <a href="contact.html" class="btn">تواصل معنا</a>
+                </div>
+            </div>
+
+            <div class="about-features">
+                <div class="about-feature">
+                    <i class="fas fa-eye"></i>
+                    <h3>رؤيتنا</h3>
+                    <p>أن نكون الشركة الرائدة في تقديم الحلول التقنية المبتكرة التي تسهم في تحويل الأفكار إلى واقع ملموس وتدفع عجلة التطور الرقمي في المنطقة.</p>
+                </div>
+                <div class="about-feature">
+                    <i class="fas fa-bullseye"></i>
+                    <h3>رسالتنا</h3>
+                    <p>تقديم حلول تقنية متكاملة ومبتكرة تلبي احتياجات عملائنا، من خلال فريق متميز وبيئة عمل إبداعية تستخدم أحدث التقنيات والمعايير العالمية.</p>
+                </div>
+                <div class="about-feature">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>أهدافنا</h3>
+                    <p>نسعى لتحقيق التميز في تقديم الحلول التقنية، وبناء شراقات طويلة الأمد مع عملائنا، والمساهمة في تطوير المجتمع التقني في المملكة والمنطقة.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم القيم -->
+    <section class="values-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>قيمنا</h2>
+                <p>القيم والمبادئ التي نؤمن بها ونسير عليها في كل مشاريعنا وتعامﻻتنا</p>
+            </div>
+
+            <div class="values-grid">
+                <div class="value-item">
+                    <div class="value-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <div class="value-content">
+                        <h3>الابتكار</h3>
+                        <p>نؤمن بالابتكار والتجديد المستمر في أفكارنا وحلولنا، ونسعى دائماً لاستكشاف أحدث التقنيات والأساليب لتقديم حلول متميزة.</p>
+                    </div>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <div class="value-content">
+                        <h3>الجودة</h3>
+                        <p>نلتزم بأعلى معايير الجودة في جميع مشاريعنا، ونسعى لتحقيق التميز في كل ما نقدمه من حلول وخدمات.</p>
+                    </div>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <div class="value-content">
+                        <h3>الشراكة</h3>
+                        <p>نعمل كشريك حقيقي مع عملائنا، ونشاركهم همومهم وتحدياتهم، ونسعى معاً لتحقيق أهداف他們 وطموحاتهم.</p>
+                    </div>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="value-content">
+                        <h3>العمل الجماعي</h3>
+                        <p>نؤمن بقوة العمل الجماعي، ونسعى لخلق بيئة عمل تعاونية تحفز الإبداع والتميز وتضمن تحقيق أفضل النتائج.</p>
+                    </div>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="value-content">
+                        <h3>الموثوقية</h3>
+                        <p>نحرص على بناء علاقات قائمة على الثقة والشفافية مع عملائنا، ونلتزم بوعودنا ونتحمل مسؤولية أعمالنا.</p>
+                    </div>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="value-content">
+                        <h3>الرضا</h3>
+                        <p>نسعى لتحقيق رضا عملائنا من خلال الاستماع لمتطلباتهم وتقديم حلول تتجاوز توقعاتهم وتحقق أهدافهم.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الخط الزمني -->
+    <section class="timeline-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>رحلتنا</h2>
+                <p>محطات مهمة في رحلة تطور ونمو شركة Smartcat</p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2015</div>
+                        <div class="timeline-text">تأسيس الشركة وبداية العمل بمشاريع محلية في مجال تطوير الويب</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2016</div>
+                        <div class="timeline-text">توسيع نطاق العمل ليشمل تطوير تطبيقات الجوال وبداية العمل مع عملاء من خارج المملكة</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2017</div>
+                        <div class="timeline-text">افتتاح فرع جديد في دبي وبداية التخصص في حلول التجارة الإلكترونية</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2018</div>
+                        <div class="timeline-text">الحصول على شهادة الجودة ISO 9001 وبداية تقديم خدمات الاستشارات التقنية</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2019</div>
+                        <div class="timeline-text">توسيع فريق العمل ليشمل أكثر من 50 موظفاً وبداية العمل على مشاريع كبرى</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2020</div>
+                        <div class="timeline-text">تطوير منصات التعلم عن بعد وتقديم حلول سحابية متكاملة للعملاء</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2021</div>
+                        <div class="timeline-text">توسيع نطاق العمل ليشمل السوق الأوروبي وبداية التعاون مع شركات عالمية</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2022</div>
+                        <div class="timeline-text">تطوير أول منصة ذكاء اصطناعي متخصصة وتحقيق نمو بنسبة 150% في الإيرادات</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2023</div>
+                        <div class="timeline-text">افتتاح مقر جديد ومواصلة الابتكار في تقديم حلول تقنية متطورة</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الفريق -->
+    <section class="team-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>فريقنا</h2>
+                <p>تعرف على فريق العمل المتميز الذي يقف وراء نجاح مشاريعنا</p>
+            </div>
+
+            <div class="team-grid">
+               
+                <!-- رؤى سلطان - مديرة قسم تقنية المعلومات -->
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="رواء سلطان">
+                    </div>
+                    <div class="member-info">
+                        <h3>رؤى سلطان</h3>
+                        <div class="member-position">مديرة قسم تقنية المعلومات</div>
+                        
+                        <div class="member-contact">
+                            <div class="contact-info">
+                                <i class="fas fa-phone"></i>
+                                <a href="tel:+966566439605">+966 56 643 9605</a>
+                            </div>
+                            <div class="contact-info">
+                                <i class="fas fa-envelope"></i>
+                                <a href="mailto:Road@smartcat.sa">Roaa@smartcat.sa</a>
+                            </div>
+                            <div class="contact-info">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>الرياض، السعودية</span>
+                            </div>
+                        </div>
+                        
+                        <p class="member-description">رؤى محترفة في إدارة تقنية المعلومات مع خبرة تزيد عن سنه, تشرف على البنية التحتية التقنية للشركة وتضمن تقديم خدمات ذات جودة عالية. تمتلك مهارات قيادية متميزة وقدرة على إدارة الفرق التقنية بكفاءة.</p>
+                        
+                        <div class="member-social">
+                            <a href="www.linkedin.com/roaaasultan"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="mailto:Roaa@smartcat.sa"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- هدى الشناوي -->
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="هدى الشناوي">
+                    </div>
+                    <div class="member-info">
+                        <h3>هدى الشناوي</h3>
+                        <div class="member-position">محللة أعمال</div>
+                        
+                        <div class="member-contact">
+                            <div class="contact-info">
+                                <i class="fas fa-envelope"></i>
+                                <a href="mailto:huda.elshenawy@smartcat.sa">huda.elshenawy@smartcat.sa</a>
+                            </div>
+                            <div class="contact-info">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>الرياض، السعودية</span>
+                            </div>
+                        </div>
+                        
+                        <p class="member-description">هدى متخصصة في تحليل الأعمال وتحديد متطلبات العملاء وتحويلها إلى حلول تقنية فعالة. تمتلك مهارات تحليلية متميزة وقدرة على فهم احتياجات العملاء المختلفة وتقديم الحلول المناسبة لها.</p>
+                        
+                        <div class="member-social">
+                            <a href="mailto:huda.elshenawy@smartcat.sa"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- عوض عثمان - مدير المشاريع -->
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="عوض عثمان">
+                    </div>
+                    <div class="member-info">
+                        <h3>عوض عثمان</h3>
+                        <div class="member-position">مدير المشاريع</div>
+                        
+                        <div class="member-contact">
+                            <div class="contact-info">
+                                <i class="fas fa-envelope"></i>
+                                <a href="mailto:awad.osman@smartcat.sa">awad.osman@smartcat.sa</a>
+                            </div>
+                            <div class="contact-info">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>الرياض، السعودية</span>
+                            </div>
+                        </div>
+                        
+                        <p class="member-description">عوض يدير مشاريع الشركة باحترافية عالية، ويضمن تسليمها في الوقت المحدد وبالجودة المتوقعة. يمتلك خبرة واسعة في إدارة المشاريع التقنية وتنسيق عمل الفرق المختلفة لتحقيق أهداف المشاريع بكفاءة.</p>
+                        
+                        <div class="member-social">
+                            <a href="mailto:awad.osman@smartcat.sa"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- الفوتر -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>عن Smartcat</h3>
+                    <p>شركة رائدة في مجال الحلول التقنية والبرمجية، نقدم خدمات متكاملة تساعد businesses على النمو والازدهار في العصر الرقمي.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>روابط سريعة</h3>
+                    <ul>
+                        <li><a href="index.html"><i class="fas fa-arrow-left"></i> الرئيسية</a></li>
+                        <li><a href="services.html"><i class="fas fa-arrow-left"></i> خدماتنا</a></li>
+                        <li><a href="projects.html"><i class="fas fa-arrow-left"></i> مشاريعنا</a></li>
+                        <li><a href="about.html"><i class="fas fa-arrow-left"></i> عن الشركة</a></li>
+                        <li><a href="contact.html"><i class="fas fa-arrow-left"></i> اتصل بنا</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>خدماتنا</h3>
+                    <ul>
+                        <li><a href="services.html#mobile"><i class="fas fa-arrow-left"></i> تطبيقات الجوال</a></li>
+                        <li><a href="services.html#web"><i class="fas fa-arrow-left"></i> تطوير الويب</a></li>
+                        <li><a href="services.html#cloud"><i class="fas fa-arrow-left"></i> الحلول السحابية</a></li>
+                        <li><a href="services.html#consulting"><i class="fas fa-arrow-left"></i> الاستشارات التقنية</a></li>
+                        <li><a href="services.html#marketing"><i class="fas fa-arrow-left"></i> التسويق الرقمي</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>معلومات الاتصال</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> الرياض، المملكة العربية السعودية</li>
+                        <li><i class="fas fa-envelope"></i> info@smartcat.sa</li>
+                        <li><i class="fas fa-phone"></i> +966 11 123 4567</li>
+                        <li><i class="fas fa-clock"></i> الأحد - الخميس: 8 ص - 5 م</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>جميع الحقوق محفوظة © 2023 Smartcat</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // كود الجافاسكريبت البسيط للتنقل عبر الصفحات
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const nav = document.querySelector('nav ul');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+            });
+            
+            // تعديل عرض القائمة عند تغيير حجم النافذة
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    nav.style.display = 'flex';
+                } else {
+                    nav.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

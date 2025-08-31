@@ -1134,6 +1134,16 @@
             padding-right: 0;
             padding-left: 0.5rem;
         }
+
+        /* Language transition */
+        .translatable {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        .language-changing {
+            opacity: 0.7;
+            transform: translateY(5px);
+        }
     </style>
 </head>
 <body>
@@ -1415,14 +1425,14 @@
                         </div>
                         <div class="project-links">
                             <a href="kfmc.html" class="project-link" data-translate="view-project">عرض المشروع</a>
-                        
+                            
                         </div>
                     </div>
                 </div>
 
                 <div class="project-card fade-in">
                     <div class="project-image">
-                        <i class="fas fa-home-heart"></i>
+                        <i class="fas fa-homet"></i>
                     </div>
                     <div class="project-content">
                         <h3 data-translate="project2-title">منصة إدارة العائلة</h3>
@@ -1435,17 +1445,19 @@
                         </div>
                         <div class="project-links">
                             <a href="fam.html" class="project-link" data-translate="view-project">عرض المشروع</a>
+                           
                         </div>
                     </div>
                 </div>
-                
-                     <div class="project-card fade-in">
+
+
+ <div class="project-card fade-in">
                     <div class="project-image">
-                        <i class="fas fa- website"></i>
+                        <i class="fas fa-computer"></i>
                     </div>
                     <div class="project-content">
-                        <h3 data-translate="project2-title"> Smartact </h3>
-                        <p data-translate="project2-desc"> منصه تقنية للحلول والاستشارات التقنية </p>
+                        <h3 data-translate="project2-title">Smartcat</h3>
+                        <p data-translate="project2-desc"> حلول واستشارات تقنية </p>
                         <div class="project-tech">
                             <span class="tech-tag">HTML/CSS</span>
                             <span class="tech-tag">JavaScript</span>
@@ -1454,7 +1466,10 @@
                         </div>
                         <div class="project-links">
                             <a href="smart.html" class="project-link" data-translate="view-project">عرض المشروع</a>
-
+                           
+                        </div>
+                    </div>
+                </div>
 
                 
                 <div class="project-card fade-in">
@@ -1469,15 +1484,6 @@
                             <span class="tech-tag">Java</span>
                             <span class="tech-tag">Firebase</span>
                             <span class="tech-tag">SQLite</span>
-                        </div>
-        
-                        <div class="project-content">
-                        <h3 data-translate="project3-title">  Github   </h3>
-                        <p data-translate="project3-desc"> تعليم لرفع المشاريع على ال github </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">html</span>
-                            <span class="tech-tag">scc</span>
-                            <span class="tech-tag">js</span>
                         </div>
                     </div>
                 </div>
@@ -1632,7 +1638,101 @@
             
             // Language toggle
             const languageToggle = document.getElementById('languageToggle');
+            const languageIcon = languageToggle.querySelector('i');
             
+            // النصوص العربية (النصوص الأصلية)
+            const arabicText = {
+                // Navigation
+                'nav-about': 'نبذة',
+                'nav-skills': 'المهارات',
+                'nav-experience': 'الخبرة',
+                'nav-projects': 'المشاريع',
+                'nav-contact': 'التواصل',
+                
+                // Hero
+                'hero-title': 'رؤى سلطان',
+                'hero-subtitle': 'مطورة ويب كاملة',
+                'hero-description': 'مطورة ويب شغوفة ببناء تطبيقات ويب مبتكرة وجذابة. أجمع بين الإبداع والتقنية لإنشاء حلول رقمية استثنائية.',
+                'hero-btn-projects': 'عرض المشاريع',
+                'hero-btn-contact': 'تواصل معي',
+                
+                // About
+                'about-title': 'نبذة عني',
+                'about-subtitle': 'تعرف على المزيد عن رحلتي وخبرتي',
+                'about-heading': 'مطورة ويب شغوفة بالإبداع والتقنية',
+                'about-p1': 'أنا مطورة ويب كاملة مع خبرة في بناء وتطوير الأنظمة الإلكترونية باستخدام ASP.NET، وتنفيذ عمليات CRUD، وربط البيانات مع واجهات المستخدم سهلة الاستخدام.',
+                'about-p2': 'ساهمت في مشاريع أكاديمية ومهنية متنوعة، بما في ذلك نظام التخليص الشامل في مدينة الملك فهد الطبية ومنصات إدارة العائلة للويب والأندرويد.',
+                'about-edu-title': 'التعليم',
+                'about-edu-desc': 'دبلوم علوم الحاسب - البرمجة',
+                'about-exp-title': 'الخبرة',
+                'about-exp-desc': '3+ سنوات في تطوير الويب',
+                'about-projects-title': 'المشاريع',
+                'about-projects-desc': '10+ مشروع مكتمل',
+                'about-lang-title': 'اللغات',
+                'about-lang-desc': 'العربية, الإنجليزية',
+                
+                // Skills
+                'skills-title': 'مهاراتي',
+                'skills-subtitle': 'المهارات التقنية التي أمتلكها',
+                'skills-frontend': 'تطوير الواجهة الأمامية',
+                'skills-backend': 'تطوير الواجهة الخلفية',
+                'skills-database': 'قواعد البيانات',
+                'skills-other': 'مهارات أخرى',
+                
+                // Experience
+                'experience-title': 'الخبرة العملية',
+                'experience-subtitle': 'رحلة تطوري المهني وخبراتي في مجال تطوير الويب',
+                'exp1-role': 'متدربة كمطورة ويب كاملة',
+                'exp1-duration': 'يناير 2025 - مايو 2025',
+                'exp1-desc1': 'تطوير نظام إلكتروني للتصاريح والتخليص',
+                'exp1-desc2': 'تنفيذ عمليات CRUD وربط البيانات',
+                'exp1-desc3': 'تصميم واجهة المستخدم باستخدام ASP.NET',
+                'exp1-desc4': 'تصدير التقارير بصيغ PDF و Excel',
+                'exp2-role': 'مديرة قسم تكنولوجيا المعلومات',
+                'exp2-duration': 'فبراير 2024 - ديسمبر 2024',
+                'exp2-desc1': 'توجيه العمليات التقنية وتقديم الدعم الفني عن بعد',
+                'exp2-desc2': 'المساهمة في تطوير وتنفيذ المشاريع الرقمية',
+                'exp2-desc3': 'حل المشكلات التقنية المتعلقة بمنصات الويب',
+                'exp2-desc4': 'المشاركة في اجتماعات الفريق عن بعد',
+                'exp3-role': 'استقبال ودعم إداري',
+                'exp3-duration': 'أبريل 2023 - يوليو 2023',
+                'exp3-desc1': 'استقبال العملاء وإدارة المواعيد اليومية',
+                'exp3-desc2': 'الرد على الاستفسارات وحل المشكلات الإدارية',
+                'exp3-desc3': 'إدارة حسابات وسائل التواصل الاجتماعي',
+                'exp3-desc4': 'تنسيق عمليات الحجز والجدولة',
+                
+                // Projects
+                'projects-title': 'مشاريعي',
+                'projects-subtitle': 'أحدث المشاريع التي قمت بتطويرها باستخدام أحدث التقنيات',
+                'project1-title': 'نظام التصاريح الإلكتروني',
+                'project1-desc': 'نظام إلكتروني متكامل لإدارة التصاريح والتخليص، تم تطويره خلال فترة التدريب في مدينة الملك فهد الطبية.',
+                'project2-title': 'منصة إدارة العائلة',
+                'project2-desc': 'منصة ويب متكاملة لإدارة شؤون العائلة مع نظام تقويم عائلي، إدارة المصاريف، وكتابة الملاحظات لأفراد العائلة.',
+                'project3-title': 'تطبيق العائلة على أندroid',
+                'project3-desc': 'تطبيق أندرويد لإدارة شؤون العائلة مع ميزات التقويم العائلي، إدارة المصاريف، والملاحظات.',
+                'view-project': 'عرض المشروع',
+                
+                // Contact
+                'contact-title': 'التواصل',
+                'contact-subtitle': 'تواصل معي للاستفسار عن مشاريعك أو فرص العمل',
+                'contact-phone': 'هاتف',
+                'contact-email': 'بريد إلكتروني',
+                'contact-linkedin': 'لينكد إن',
+                'contact-location': 'موقع',
+                'contact-location-desc': 'الرياض، المملكة العربية السعودية',
+                'form-name': 'الاسم',
+                'form-email': 'البريد الإلكتروني',
+                'form-subject': 'الموضوع',
+                'form-message': 'الرسالة',
+                'form-submit': 'إرسال الرسالة',
+                
+                // Footer
+                'footer-text': 'مطورة ويب كاملة شغوفة بالإبداع والتقنية',
+                'footer-links': 'روابط سريعة',
+                'footer-contact': 'معلومات التواصل',
+                'copyright': '© 2023 رؤى سلطان - جميع الحقوق محفوظة'
+            };
+
             // English translations
             const englishText = {
                 // Navigation
@@ -1726,41 +1826,60 @@
                 'copyright': '© 2023 Roaa Sultan - All Rights Reserved'
             };
             
+            // وظيفة تغيير اللغة
+            function changeLanguage(lang) {
+                const textData = lang === 'en' ? englishText : arabicText;
+                const translatableElements = document.querySelectorAll('[data-translate]');
+                
+                // إضافة تأثير التغيير
+                document.body.classList.add('language-changing');
+                
+                // تحديث جميع العناصر
+                translatableElements.forEach(element => {
+                    const key = element.getAttribute('data-translate');
+                    if (textData[key]) {
+                        element.textContent = textData[key];
+                    }
+                });
+                
+                // تحديث اتجاه الصفحة وسمة اللغة
+                if (lang === 'en') {
+                    document.documentElement.setAttribute('dir', 'ltr');
+                    document.documentElement.setAttribute('lang', 'en');
+                    document.body.setAttribute('dir', 'ltr');
+                    languageIcon.classList.remove('fa-globe');
+                    languageIcon.classList.add('fa-arrow-left');
+                } else {
+                    document.documentElement.setAttribute('dir', 'rtl');
+                    document.documentElement.setAttribute('lang', 'ar');
+                    document.body.setAttribute('dir', 'rtl');
+                    languageIcon.classList.remove('fa-arrow-left');
+                    languageIcon.classList.add('fa-globe');
+                }
+                
+                // إزالة تأثير التغيير بعد انتهاء الانتقال
+                setTimeout(() => {
+                    document.body.classList.remove('language-changing');
+                }, 300);
+                
+                // حفظ التفضيل في localStorage
+                localStorage.setItem('language', lang);
+            }
+            
             // Language toggle functionality
             languageToggle.addEventListener('click', function() {
                 const currentLang = document.documentElement.getAttribute('lang');
                 if (currentLang === 'ar') {
-                    // Switch to English
-                    document.documentElement.setAttribute('lang', 'en');
-                    document.documentElement.setAttribute('dir', 'ltr');
-                    document.body.classList.add('english');
-                    
-                    // Update all translatable elements
-                    const translatableElements = document.querySelectorAll('[data-translate]');
-                    translatableElements.forEach(element => {
-                        const key = element.getAttribute('data-translate');
-                        if (englishText[key]) {
-                            element.textContent = englishText[key];
-                        }
-                    });
-                    
-                    // Update language in localStorage
-                    localStorage.setItem('language', 'en');
+                    changeLanguage('en');
                 } else {
-                    // Switch to Arabic
-                    document.documentElement.setAttribute('lang', 'ar');
-                    document.documentElement.setAttribute('dir', 'rtl');
-                    document.body.classList.remove('english');
-                    
-                    // Reload to reset to Arabic (for simplicity)
-                    location.reload();
+                    changeLanguage('ar');
                 }
             });
             
             // Check for saved language preference
             const savedLanguage = localStorage.getItem('language');
             if (savedLanguage === 'en') {
-                languageToggle.click(); // Trigger click to switch to English
+                changeLanguage('en');
             }
             
             // Scroll animations
@@ -1783,11 +1902,18 @@
             const contactForm = document.getElementById('contactForm');
             contactForm.addEventListener('submit', function(e) {
                 e.preventDefault();
-                alert('شكراً لتواصلك! سيتم الرد عليك قريباً.'); // Update for English
+                
+                // عرض رسالة باللغة المناسبة
+                const currentLang = document.documentElement.getAttribute('lang');
+                if (currentLang === 'ar') {
+                    alert('شكراً لتواصلك! سيتم الرد عليك قريباً.');
+                } else {
+                    alert('Thank you for your message! I will get back to you soon.');
+                }
+                
                 contactForm.reset();
             });
         });
     </script>
 </body>
 </html>
-

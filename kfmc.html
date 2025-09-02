@@ -3,1104 +3,920 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مدينة الملك فهد الطبية - النظام الإلكتروني</title>
+    <title>نظام إدارة التصاريح والإجازات الإلكتروني</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #00635b;
-            --secondary-color: #18968a;
-            --accent-color: #4db6ac;
-            --light-color: #e0f2f1;
-            --dark-color: #004d40;
-            --success-color: #2e7d32;
-            --danger-color: #c62828;
-            --warning-color: #f9a825;
-            --white: #ffffff;
-            --gray: #90a4ae;
-            --text-color: #263238;
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Noto Sans Arabic', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
+        
         body {
-            background-color: #f5f5f5;
-            color: var(--text-color);
-            line-height: 1.7;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            padding-top: 80px;
         }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
+        
+        .navbar {
+            background-color: var(--primary);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
-
-        /* Header Styles */
-        header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: var(--white);
-            padding: 0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+        
+        .hero-section {
+            background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('https://images.unsplash.com/photo-1516387938699-a93567ec168e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            margin-bottom: 50px;
         }
-
-        .top-bar {
-            background-color: var(--dark-color);
-            padding: 8px 0;
-            font-size: 0.9rem;
+        
+        .feature-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 100%;
         }
-
-        .top-bar-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
-
-        .contact-info {
-            display: flex;
-            gap: 20px;
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
         }
-
-        .contact-info a {
-            color: var(--white);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 5px;
+        
+        .dashboard-card {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
         }
-
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
+        
+        .dashboard-card:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
         }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--secondary);
         }
-
-        .logo img {
-            height: 70px;
+        
+        .btn-primary {
+            background-color: var(--secondary);
+            border-color: var(--secondary);
         }
-
-        .logo-text h1 {
-            font-size: 1.8rem;
-            margin-bottom: 5px;
+        
+        .btn-primary:hover {
+            background-color: #2980b9;
+            border-color: #2980b9;
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 40px;
             font-weight: 700;
         }
-
-        .logo-text p {
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 5px;
-        }
-
-        nav a {
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            padding: 10px 15px;
-            border-radius: 4px;
-            font-size: 0.95rem;
-        }
-
-        nav a:hover, nav a.active {
-            background-color: rgba(255, 255, 255, 0.15);
-        }
-
-        /* Main Content */
-        .main-content {
-            padding: 30px 0;
-            min-height: calc(100vh - 200px);
-        }
-
-        .page-header {
-            margin-bottom: 30px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--accent-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .page-header h2 {
-            font-size: 1.8rem;
-            color: var(--primary-color);
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .breadcrumb {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.9rem;
-            color: var(--gray);
-        }
-
-        .breadcrumb a {
-            color: var(--secondary-color);
-            text-decoration: none;
-        }
-
-        /* Dashboard Cards */
-        .dashboard-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
-        }
-
-        .card {
-            background-color: var(--white);
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            padding: 25px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::before {
+        
+        .section-title::after {
             content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 5px;
-            height: 100%;
-            background-color: var(--secondary-color);
-        }
-
-        .card:hover {
-            transform: translateY(-7px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-        }
-
-        .card-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            font-size: 1.7rem;
-            color: var(--white);
-            background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
-        }
-
-        .card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 12px;
-            color: var(--dark-color);
-        }
-
-        .card p {
-            color: var(--gray);
-            margin-bottom: 20px;
-            font-size: 0.95rem;
-        }
-
-        .card .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            background-color: var(--secondary-color);
-            color: var(--white);
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-        }
-
-        .card .btn:hover {
-            background-color: var(--primary-color);
-            gap: 12px;
-        }
-
-        /* Forms */
-        .form-container {
-            background-color: var(--white);
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            padding: 30px;
-            margin-bottom: 40px;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
             display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--dark-color);
+            width: 60px;
+            height: 4px;
+            background: var(--secondary);
+            margin-top: 15px;
+            margin-right: auto;
+            margin-left: auto;
         }
-
-        .form-control {
-            width: 100%;
-            padding: 14px 15px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            background-color: #f9f9f9;
-        }
-
-        .form-control:focus {
-            border-color: var(--accent-color);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(77, 182, 172, 0.2);
-            background-color: var(--white);
-        }
-
-        textarea.form-control {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 14px 28px;
-            background-color: var(--secondary-color);
-            color: var(--white);
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .btn:hover {
-            background-color: var(--primary-color);
-            transform: translateY(-2px);
-        }
-
-        .btn-block {
-            display: flex;
-            width: 100%;
-        }
-
-        .btn-success {
-            background-color: var(--success-color);
-        }
-
-        .btn-success:hover {
-            background-color: #255d28;
-        }
-
-        .btn-danger {
-            background-color: var(--danger-color);
-        }
-
-        .btn-danger:hover {
-            background-color: #a01c1c;
-        }
-
-        /* Tables */
-        .table-responsive {
-            overflow-x: auto;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            margin-bottom: 25px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            margin-bottom: 0;
-        }
-
-        th, td {
-            padding: 14px 16px;
-            text-align: right;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        th {
-            background-color: var(--primary-color);
-            color: var(--white);
-            font-weight: 500;
-            position: sticky;
-            top: 0;
-        }
-
-        tr:last-child td {
-            border-bottom: none;
-        }
-
-        tr:hover {
-            background-color: rgba(0, 99, 91, 0.04);
-        }
-
-        .status {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        .status-pending {
-            background-color: #fff8e1;
-            color: var(--warning-color);
-        }
-
-        .status-approved {
-            background-color: #e8f5e9;
-            color: var(--success-color);
-        }
-
-        .status-rejected {
-            background-color: #ffebee;
-            color: var(--danger-color);
-        }
-
-        .action-btns {
-            display: flex;
-            gap: 8px;
-        }
-
-        .action-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-            padding: 7px 12px;
-            border-radius: 5px;
-            font-size: 0.85rem;
-            cursor: pointer;
-            border: none;
-            transition: all 0.3s ease;
-        }
-
-        .action-btn.approve {
-            background-color: var(--success-color);
-            color: white;
-        }
-
-        .action-btn.reject {
-            background-color: var(--danger-color);
-            color: white;
-        }
-
-        .action-btn.view {
-            background-color: var(--accent-color);
-            color: white;
-        }
-
-        .action-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Footer */
+        
         footer {
-            background-color: var(--dark-color);
-            color: var(--white);
-            padding: 40px 0 20px;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-
-        .footer-section h3 {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-section h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 50px;
-            height: 2px;
-            background-color: var(--accent-color);
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-
-        .footer-links a {
-            color: var(--light-color);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .footer-links a:hover {
-            color: var(--accent-color);
-            gap: 12px;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            color: var(--white);
-            border-radius: 50%;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-            background-color: var(--accent-color);
-            transform: translateY(-3px);
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-
-        /* Responsive */
-        @media (max-width: 992px) {
-            .header-container {
-                flex-direction: column;
-                gap: 20px;
-            }
-            
-            nav ul {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .dashboard-cards {
-                grid-template-columns: 1fr;
-            }
-            
-            .page-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .action-btns {
-                flex-wrap: wrap;
-            }
-            
-            .top-bar-content {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .contact-info {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .logo {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            nav ul {
-                gap: 3px;
-            }
-            
-            nav a {
-                padding: 8px 10px;
-                font-size: 0.85rem;
-            }
-            
-            .card-icon {
-                width: 50px;
-                height: 50px;
-                font-size: 1.4rem;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Scroll to top button */
-        .scroll-to-top {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            width: 50px;
-            height: 50px;
-            background-color: var(--primary-color);
+            background-color: var(--dark);
             color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-            z-index: 999;
-            opacity: 0;
-            visibility: hidden;
+            padding: 40px 0 20px;
+            margin-top: 50px;
         }
-
-        .scroll-to-top.show {
-            opacity: 1;
-            visibility: visible;
+        
+        .page-content {
+            display: none;
         }
-
-        .scroll-to-top:hover {
-            background-color: var(--secondary-color);
-            transform: translateY(-3px);
+        
+        .active-page {
+            display: block;
+        }
+        
+        .table-responsive {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-container {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 60px 0;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="top-bar">
-            <div class="container top-bar-content">
-                <div class="contact-info">
-                    <a href="tel:+966114647000"><i class="fas fa-phone"></i> 114647000 (11) +</a>
-                    <a href="mailto:info@kfmc.med.sa"><i class="fas fa-envelope"></i> info@kfmc.med.sa</a>
-                </div>
-                <div class="auth-links">
-                    <a href="#"><i class="fas fa-user"></i> تسجيل الدخول</a>
-                </div>
-            </div>
-        </div>
-        <div class="container header-container">
-            <div class="logo">
-                <img src="https://www.kfmc.med.sa/_layouts/15/KDH.KFMC.Portal/Assets/Images/logo.png" alt="شعار مدينة الملك فهد الطبية">
-                <div class="logo-text">
-                    <h1>مدينة الملك فهد الطبية</h1>
-                    <p>التميز في الرعاية الصحية والبحث العلمي</p>
-                </div>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="#" class="active"><i class="fas fa-home"></i> الرئيسية</a></li>
-                    <li><a href="#"><i class="fas fa-info-circle"></i> عن المدينة</a></li>
-                    <li><a href="#"><i class="fas fa-stethoscope"></i> الخدمات الطبية</a></li>
-                    <li><a href="#"><i class="fas fa-flask"></i> البحث العلمي</a></li>
-                    <li><a href="#"><i class="fas fa-users"></i> المرضى والزوار</a></li>
-                    <li><a href="#"><i class="fas fa-briefcase"></i> الوظائف</a></li>
-                    <li><a href="#"><i class="fas fa-envelope"></i> اتصل بنا</a></li>
+    <!-- شريط التنقل -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#" onclick="showPage('home')">
+                <i class="fas fa-tasks me-2"></i>
+                نظام التصاريح
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#" onclick="showPage('home')">الرئيسية</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('permissions')">التصاريح</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('vacations')">الإجازات</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('reports')">التقارير</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('admin')">الإدارة</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('register')">التسجيل</a></li>
                 </ul>
-            </nav>
+            </div>
         </div>
-    </header>
+    </nav>
 
-    <!-- Main Content -->
-    <main class="main-content">
+    <!-- الصفحة الرئيسية -->
+    <div id="home" class="page-content active-page">
+        <!-- قسم البطل -->
+        <section class="hero-section text-center">
+            <div class="container">
+                <h1 class="display-4 fw-bold mb-4">نظام إدارة التصاريح والإجازات الإلكتروني</h1>
+                <p class="lead mb-4">حل متكامل لإدارة طلبات التصاريح والإجازات بشكل إلكتروني وفعال</p>
+                <a href="#" class="btn btn-primary btn-lg me-2">تجربة النظام</a>
+                <a href="#" class="btn btn-outline-light btn-lg">معرفة المزيد</a>
+            </div>
+        </section>
+
+        <!-- إحصائيات -->
+        <section class="py-5">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-md-3 col-6">
+                        <div class="dashboard-card text-center p-4">
+                            <div class="stat-number">245</div>
+                            <p>طلب تصريح نشط</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="dashboard-card text-center p-4">
+                            <div class="stat-number">128</div>
+                            <p>طلب إجازة هذا الشهر</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="dashboard-card text-center p-4">
+                            <div class="stat-number">42</div>
+                            <p>طلب يحتاج مراجعة</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="dashboard-card text-center p-4">
+                            <div class="stat-number">37</div>
+                            <p>مستخدم نشط</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- الميزات -->
+        <section class="py-5 bg-light">
+            <div class="container">
+                <h2 class="text-center section-title">ميزات النظام</h2>
+                <div class="row g-4">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card card p-4 text-center">
+                            <div class="feature-icon">
+                                <i class="fas fa-plus-circle"></i>
+                            </div>
+                            <h3>إنشاء الطلبات</h3>
+                            <p>إمكانية إنشاء طلبات تصاريح وإجازات جديدة بسهولة مع واجهة مستخدم بديهية</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card card p-4 text-center">
+                            <div class="feature-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <h3>عمليات CRUD</h3>
+                            <p>إدارة كاملة للبيانات مع عمليات إنشاء وقراءة وتحديث وحذف متكاملة</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card card p-4 text-center">
+                            <div class="feature-icon">
+                                <i class="fas fa-link"></i>
+                            </div>
+                            <h3>ربط البيانات</h3>
+                            <p>ربط بين البيانات المختلفة في النظام لتحسين سير العمل واتخاذ القرارات</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card card p-4 text-center">
+                            <div class="feature-icon">
+                                <i class="fas fa-file-pdf"></i>
+                            </div>
+                            <h3>تقارير PDF</h3>
+                            <p>إمكانية تصدير التقارير بصيغة PDF للحفظ والطباعة والمشاركة</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card card p-4 text-center">
+                            <div class="feature-icon">
+                                <i class="fas fa-file-excel"></i>
+                            </div>
+                            <h3>تقارير Excel</h3>
+                            <p>تصدير البيانات والتقارير إلى صيغة Excel لمزيد من التحليل والمعالجة</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="feature-card card p-4 text-center">
+                            <div class="feature-icon">
+                                <i class="fas fa-desktop"></i>
+                            </div>
+                            <h3>واجهة ASP.NET</h3>
+                            <p>تصميم واجهة مستخدم متجاوبة باستخدام تقنيات ASP.NET الحديثة</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- لوحة التحكم -->
+        <section class="py-5">
+            <div class="container">
+                <h2 class="text-center section-title">لوحة التحكم</h2>
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="card dashboard-card">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="mb-0">طلبات التصاريح الحديثة</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item list-group-item-action">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1">طلب تصريح خروج</h6>
+                                            <small>منذ ساعة</small>
+                                        </div>
+                                        <p class="mb-1">أحمد محمد - قسم التقنية</p>
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1">تصريح دخول</h6>
+                                            <small>منذ 3 ساعات</small>
+                                        </div>
+                                        <p class="mb-1">فاطمة عبدالله - قسم الموارد البشرية</p>
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1">تصريح زيارة</h6>
+                                            <small>منذ 5 ساعات</small>
+                                        </div>
+                                        <p class="mb-1">خالد سعيد - قسم المالية</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card dashboard-card">
+                            <div class="card-header bg-success text-white">
+                                <h5 class="mb-0">طلبات الإجازات الحديثة</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item list-group-item-action">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1">إجازة مرضية</h6>
+                                            <small>منذ يوم</small>
+                                        </div>
+                                        <p class="mb-1">سارة ناصر - قسم الدعم الفني</p>
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1">إجازة سنوية</h6>
+                                            <small>منذ يومين</small>
+                                        </div>
+                                        <p class="mb-1">محمد علي - قسم التطوير</p>
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1">إجازة طارئة</h6>
+                                            <small>منذ 3 أيام</small>
+                                        </div>
+                                        <p class="mb-1">لينا كمال - قسم الجودة</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- التقنيات المستخدمة -->
+        <section class="py-5 bg-light">
+            <div class="container">
+                <h2 class="text-center section-title">التقنيات المستخدمة</h2>
+                <div class="row text-center">
+                    <div class="col-md-2 col-4 mb-4">
+                        <i class="fab fa-windows fa-3x mb-2 text-primary"></i>
+                        <h5>ASP.NET</h5>
+                    </div>
+                    <div class="col-md-2 col-4 mb-4">
+                        <i class="fas fa-database fa-3x mb-2 text-primary"></i>
+                        <h5>SQL Server</h5>
+                    </div>
+                    <div class="col-md-2 col-4 mb-4">
+                        <i class="fab fa-js-square fa-3x mb-2 text-warning"></i>
+                        <h5>JavaScript</h5>
+                    </div>
+                    <div class="col-md-2 col-4 mb-4">
+                        <i class="fab fa-bootstrap fa-3x mb-2 text-purple"></i>
+                        <h5>Bootstrap</h5>
+                    </div>
+                    <div class="col-md-2 col-4 mb-4">
+                        <i class="fas fa-file-pdf fa-3x mb-2 text-danger"></i>
+                        <h5>PDF Export</h5>
+                    </div>
+                    <div class="col-md-2 col-4 mb-4">
+                        <i class="fas fa-file-excel fa-3x mb-2 text-success"></i>
+                        <h5>Excel Export</h5>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- صفحة التصاريح -->
+    <div id="permissions" class="page-content">
         <div class="container">
-            <!-- Dashboard -->
-            <section id="dashboard">
-                <div class="page-header">
-                    <h2><i class="fas fa-tachometer-alt"></i> لوحة التحكم</h2>
-                    <div class="breadcrumb">
-                        <a href="#"><i class="fas fa-home"></i> الرئيسية</a>
-                        <span>/</span>
-                        <span>لوحة التحكم</span>
-                    </div>
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h2 class="section-title text-center">إدارة التصاريح</h2>
                 </div>
-
-                <div class="dashboard-cards">
-                    <div class="card">
-                        <div class="card-icon">
-                            <i class="fas fa-file-alt"></i>
+            </div>
+            
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="card dashboard-card">
+                        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">طلب تصريح جديد</h5>
+                            <button class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#addPermissionModal">
+                                <i class="fas fa-plus me-1"></i> إضافة طلب
+                            </button>
                         </div>
-                        <h3>طلب إخلاء طرف</h3>
-                        <p>قم بإنشاء طلب جديد لإخلاء الطرف من المدينة الطبية</p>
-                        <a href="#clearance" class="btn">إنشاء طلب <i class="fas fa-arrow-left"></i></a>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-icon">
-                            <i class="fas fa-id-card"></i>
-                        </div>
-                        <h3>إدارة التصاريح</h3>
-                        <p>إدارة طلبات التصاريح للموظفين والزوار</p>
-                        <a href="#permits" class="btn">عرض التصاريح <i class="fas fa-arrow-left"></i></a>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-icon">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                        <h3>الموافقات المعلقة</h3>
-                        <p>لديك 5 طلبات تحتاج إلى مراجعة وموافقة</p>
-                        <a href="#approvals" class="btn">عرض الطلبات <i class="fas fa-arrow-left"></i></a>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-icon">
-                            <i class="fas fa-chart-bar"></i>
-                        </div>
-                        <h3>التقارير والإحصائيات</h3>
-                        <p>إنشاء وعرض التقارير الإدارية والإحصائيات</p>
-                        <a href="#reports" class="btn">عرض التقارير <i class="fas fa-arrow-left"></i></a>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Clearance Form -->
-            <section id="clearance">
-                <div class="page-header">
-                    <h2><i class="fas fa-file-alt"></i> طلب إخلاء طرف</h2>
-                    <div class="breadcrumb">
-                        <a href="#"><i class="fas fa-home"></i> الرئيسية</a>
-                        <span>/</span>
-                        <a href="#dashboard">لوحة التحكم</a>
-                        <span>/</span>
-                        <span>طلب إخلاء طرف</span>
-                    </div>
-                </div>
-
-                <div class="form-container">
-                    <form>
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="employee-name">اسم الموظف</label>
-                                <input type="text" id="employee-name" class="form-control" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="employee-id">رقم الهوية/الإقامة</label>
-                                <input type="text" id="employee-id" class="form-control" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="department">القسم</label>
-                                <select id="department" class="form-control" required>
-                                    <option value="">اختر القسم</option>
-                                    <option value="it">تكنولوجيا المعلومات</option>
-                                    <option value="hr">الموارد البشرية</option>
-                                    <option value="finance">المالية</option>
-                                    <option value="medical">الطبي</option>
-                                    <option value="admin">الإداري</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="position">الوظيفة</label>
-                                <input type="text" id="position" class="form-control" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="clearance-reason">سبب إخلاء الطرف</label>
-                                <select id="clearance-reason" class="form-control" required>
-                                    <option value="">اختر السبب</option>
-                                    <option value="resignation">استقالة</option>
-                                    <option value="end-of-contract">إنهاء عقد</option>
-                                    <option value="transfer">نقل</option>
-                                    <option value="retirement">تقاعد</option>
-                                    <option value="other">أخرى</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="end-date">تاريخ انتهاء الخدمة</label>
-                                <input type="date" id="end-date" class="form-control" required>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>نوع التصريح</th>
+                                            <th>التاريخ</th>
+                                            <th>الوقت</th>
+                                            <th>الحالة</th>
+                                            <th>الإجراءات</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>تصريح خروج</td>
+                                            <td>2023-10-15</td>
+                                            <td>02:00 - 04:00</td>
+                                            <td><span class="badge bg-success">مقبول</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-info"><i class="fas fa-eye"></i></button>
+                                                <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>تصريح دخول</td>
+                                            <td>2023-10-16</td>
+                                            <td>09:00 - 10:00</td>
+                                            <td><span class="badge bg-warning">قيد المراجعة</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-info"><i class="fas fa-eye"></i></button>
+                                                <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>تصريح زيارة</td>
+                                            <td>2023-10-17</td>
+                                            <td>11:00 - 12:00</td>
+                                            <td><span class="badge bg-danger">مرفوض</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-info"><i class="fas fa-eye"></i></button>
+                                                <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            <label for="notes">ملاحظات إضافية</label>
-                            <textarea id="notes" class="form-control" placeholder="أضف أي ملاحظات أو تفاصيل إضافية هنا..."></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="attachments">المرفقات (اختياري)</label>
-                            <input type="file" id="attachments" class="form-control">
-                            <small>يمكنك رفع مستندات داعمة مثل خطاب الاستقالة أو إنهاء العقد</small>
-                        </div>
-
-                        <button type="submit" class="btn btn-block"><i class="fas fa-paper-plane"></i> إرسال الطلب</button>
-                    </form>
-                </div>
-            </section>
-
-            <!-- Permits Management -->
-            <section id="permits">
-                <div class="page-header">
-                    <h2><i class="fas fa-id-card"></i> إدارة التصاريح</h2>
-                    <div class="breadcrumb">
-                        <a href="#"><i class="fas fa-home"></i> الرئيسية</a>
-                        <span>/</span>
-                        <a href="#dashboard">لوحة التحكم</a>
-                        <span>/</span>
-                        <span>إدارة التصاريح</span>
                     </div>
                 </div>
-
-                <div class="form-container">
-                    <div class="table-responsive">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>رقم التصريح</th>
-                                    <th>اسم الموظف</th>
-                                    <th>نوع التصريح</th>
-                                    <th>التاريخ</th>
-                                    <th>الحالة</th>
-                                    <th>الإجراءات</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>PR-2023-001</td>
-                                    <td>أحمد محمد</td>
-                                    <td>تصريح دخول</td>
-                                    <td>15/10/2023</td>
-                                    <td><span class="status status-approved"><i class="fas fa-check-circle"></i> موافق</span></td>
-                                    <td>
-                                        <div class="action-btns">
-                                            <button class="action-btn view"><i class="fas fa-eye"></i> عرض</button>
-                                            <button class="action-btn reject"><i class="fas fa-times"></i> رفض</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>PR-2023-002</td>
-                                    <td>سارة عبدالله</td>
-                                    <td>تصريح زيارة</td>
-                                    <td>16/10/2023</td>
-                                    <td><span class="status status-pending"><i class="fas fa-clock"></i> قيد الانتظار</span></td>
-                                    <td>
-                                        <div class="action-btns">
-                                            <button class="action-btn view"><i class="fas fa-eye"></i> عرض</button>
-                                            <button class="action-btn approve"><i class="fas fa-check"></i> موافقة</button>
-                                            <button class="action-btn reject"><i class="fas fa-times"></i> رفض</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>PR-2023-003</td>
-                                    <td>خالد سعيد</td>
-                                    <td>تصريح معدات</td>
-                                    <td>17/10/2023</td>
-                                    <td><span class="status status-rejected"><i class="fas fa-times-circle"></i> مرفوض</span></td>
-                                    <td>
-                                        <div class="action-btns">
-                                            <button class="action-btn view"><i class="fas fa-eye"></i> عرض</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>PR-2023-004</td>
-                                    <td>نورة عبدالعزيز</td>
-                                    <td>تصريح دخول</td>
-                                    <td>18/10/2023</td>
-                                    <td><span class="status status-pending"><i class="fas fa-clock"></i> قيد الانتظار</span></td>
-                                    <td>
-                                        <div class="action-btns">
-                                            <button class="action-btn view"><i class="fas fa-eye"></i> عرض</button>
-                                            <button class="action-btn approve"><i class="fas fa-check"></i> موافقة</button>
-                                            <button class="action-btn reject"><i class="fas fa-times"></i> رفض</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <button class="btn btn-success"><i class="fas fa-plus"></i> إنشاء تصريح جديد</button>
-                </div>
-            </section>
-
-            <!-- Approvals Management -->
-            <section id="approvals">
-                <div class="page-header">
-                    <h2><i class="fas fa-check-circle"></i> إدارة الموافقات</h2>
-                    <div class="breadcrumb">
-                        <a href="#"><i class="fas fa-home"></i> الرئيسية</a>
-                        <span>/</span>
-                        <a href="#dashboard">لوحة التحكم</a>
-                        <span>/</span>
-                        <span>إدارة الموافقات</span>
-                    </div>
-                </div>
-
-                <div class="form-container">
-                    <div class="table-responsive">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>رقم الطلب</th>
-                                    <th>نوع الطلب</th>
-                                    <th>مقدم الطلب</th>
-                                    <th>التاريخ</th>
-                                    <th>الحالة</th>
-                                    <th>الإجراءات</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>CL-2023-001</td>
-                                    <td>إخلاء طرف</td>
-                                    <td>علي أحمد</td>
-                                    <td>10/10/2023</td>
-                                    <td><span class="status status-pending"><i class="fas fa-clock"></i> قيد الانتظار</span></td>
-                                    <td>
-                                        <div class="action-btns">
-                                            <button class="action-btn view"><i class="fas fa-eye"></i> عرض</button>
-                                            <button class="action-btn approve"><i class="fas fa-check"></i> موافقة</button>
-                                            <button class="action-btn reject"><i class="fas fa-times"></i> رفض</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>PR-2023-005</td>
-                                    <td>تصريح دخول</td>
-                                    <td>محمد خالد</td>
-                                    <td>11/10/2023</td>
-                                    <td><span class="status status-pending"><i class="fas fa-clock"></i> قيد الانتظار</span></td>
-                                    <td>
-                                        <div class="action-btns">
-                                            <button class="action-btn view"><i class="fas fa-eye"></i> عرض</button>
-                                            <button class="action-btn approve"><i class="fas fa-check"></i> موافقة</button>
-                                            <button class="action-btn reject"><i class="fas fa-times"></i> رفض</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>CL-2023-002</td>
-                                    <td>إخلاء طرف</td>
-                                    <td>فاطمة عبدالله</td>
-                                    <td>12/10/2023</td>
-                                    <td><span class="status status-pending"><i class="fas fa-clock"></i> قيد الانتظار</span></td>
-                                    <td>
-                                        <div class="action-btns">
-                                            <button class="action-btn view"><i class="fas fa-eye"></i> عرض</button>
-                                            <button class="action-btn approve"><i class="fas fa-check"></i> موافقة</button>
-                                            <button class="action-btn reject"><i class="fas fa-times"></i> رفض</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>PR-2023-006</td>
-                                    <td>تصريح معدات</td>
-                                    <td>سعد علي</td>
-                                    <td>13/10/2023</td>
-                                    <td><span class="status status-pending"><i class="fas fa-clock"></i> قيد الانتظار</span></td>
-                                    <td>
-                                        <div class="action-btns">
-                                            <button class="action-btn view"><i class="fas fa-eye"></i> عرض</button>
-                                            <button class="action-btn approve"><i class="fas fa-check"></i> موافقة</button>
-                                            <button class="action-btn reject"><i class="fas fa-times"></i> رفض</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
+            </div>
         </div>
-    </main>
+    </div>
 
-    <!-- Footer -->
-    <footer>
+    <!-- صفحة الإجازات -->
+    <div id="vacations" class="page-content">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>عن المدينة</h3>
-                    <ul class="footer-links">
-                        <li><a href="#"><i class="fas fa-arrow-left"></i> الرؤية والرسالة</a></li>
-                        <li><a href="#"><i class="fas fa-arrow-left"></i> الإدارة العليا</a></li>
-                        <li><a href="#"><i class="fas fa-arrow-left"></i> كلمة الرئيس التنفيذي</a></li>
-                        <li><a href="#"><i class="fas fa-arrow-left"></i> المركز الإعلامي</a></li>
-                    </ul>
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h2 class="section-title text-center">إدارة الإجازات</h2>
                 </div>
-                
-                <div class="footer-section">
-                    <h3>الخدمات الطبية</h3>
-                    <ul class="footer-links">
-                        <li><a href="#"><i class="fas fa-arrow-left"></i> التخصصات الطبية</a></li>
-                        <li><a href="#"><i class="fas fa-arrow-left"></i> المستشفيات والمعاهد</a></li>
-                        <li><a href="#"><i class="fas fa-arrow-left"></i> الخدمات الإلكترونية</a></li>
-                        <li><a href="#"><i class="fas fa-arrow-left"></i> البرامج التعليمية</a></li>
-                    </ul>
+            </div>
+            
+            <div class="row mb-4">
+                <div class="col-md-4 mb-4">
+                    <div class="card dashboard-card text-center">
+                        <div class="card-body">
+                            <div class="stat-number">21</div>
+                            <p>رصيد الإجازات السنوية</p>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="footer-section">
-                    <h3>المرضى والزوار</h3>
-                    <ul class="footer-links">
-                        <li><a href="#"><i class="fas fa-arrow-left"></i> مواعيد المراجعة</a></li>
-                        <li><a href="#"><i class="fas fa-arrow-left"></i> الخريطة التفاعلية</a></li>
-                        <li><a href="#"><i class="fas fa-arrow-left"></i> الأسئلة الشائعة</a></li>
-                        <li><a href="#"><i class="fas fa-arrow-left"></i> استفسارات المرضى</a></li>
-                    </ul>
+                <div class="col-md-4 mb-4">
+                    <div class="card dashboard-card text-center">
+                        <div class="card-body">
+                            <div class="stat-number">7</div>
+                            <p>الإجازات المستخدمة</p>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="footer-section">
-                    <h3>اتصل بنا</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> الرياض، حي المعذر، شمال مدينة الملك عبدالله</p>
-                    <p><i class="fas fa-phone"></i> 114647000 (11) +</p>
-                    <p><i class="fas fa-envelope"></i> info@kfmc.med.sa</p>
-                    
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
+                <div class="col-md-4 mb-4">
+                    <div class="card dashboard-card text-center">
+                        <div class="card-body">
+                            <div class="stat-number">14</div>
+                            <p>الإجازات المتبقية</p>
+                        </div>
                     </div>
                 </div>
             </div>
             
-            <div class="copyright">
-                &copy; 2023 مدينة الملك فهد الطبية. جميع الحقوق محفوظة.
+            <div class="row">
+                <div class="col-12">
+                    <div class="card dashboard-card">
+                        <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">طلب إجازة جديدة</h5>
+                            <button class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#addVacationModal">
+                                <i class="fas fa-plus me-1"></i> طلب إجازة
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>نوع الإجازة</th>
+                                            <th>من تاريخ</th>
+                                            <th>إلى تاريخ</th>
+                                            <th>المدة</th>
+                                            <th>الحالة</th>
+                                            <th>الإجراءات</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>إجازة سنوية</td>
+                                            <td>2023-09-01</td>
+                                            <td>2023-09-05</td>
+                                            <td>5 أيام</td>
+                                            <td><span class="badge bg-success">مقبولة</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-info"><i class="fas fa-eye"></i></button>
+                                                <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>إجازة مرضية</td>
+                                            <td>2023-10-10</td>
+                                            <td>2023-10-12</td>
+                                            <td>3 أيام</td>
+                                            <td><span class="badge bg-warning">قيد المراجعة</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-info"><i class="fas fa-eye"></i></button>
+                                                <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>إجازة طارئة</td>
+                                            <td>2023-10-15</td>
+                                            <td>2023-10-15</td>
+                                            <td>1 يوم</td>
+                                            <td><span class="badge bg-danger">مرفوضة</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-info"><i class="fas fa-eye"></i></button>
+                                                <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
+    </div>
+
+    <!-- صفحة التقارير -->
+    <div id="reports" class="page-content">
+        <div class="container">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h2 class="section-title text-center">التقارير والإحصائيات</h2>
+                </div>
+            </div>
+            
+            <div class="row mb-4">
+                <div class="col-md-6 mb-4">
+                    <div class="card dashboard-card">
+                        <div class="card-header bg-info text-white">
+                            <h5 class="mb-0">تقارير التصاريح</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-outline-primary mb-2">
+                                    <i class="fas fa-file-pdf me-2"></i> تصدير تقرير التصاريح PDF
+                                </button>
+                                <button class="btn btn-outline-success mb-2">
+                                    <i class="fas fa-file-excel me-2"></i> تصدير تقرير التصاريح Excel
+                                </button>
+                                <button class="btn btn-outline-secondary">
+                                    <i class="fas fa-chart-bar me-2"></i> عرض إحصائيات التصاريح
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-4">
+                    <div class="card dashboard-card">
+                        <div class="card-header bg-info text-white">
+                            <h5 class="mb-0">تقارير الإجازات</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-outline-primary mb-2">
+                                    <i class="fas fa-file-pdf me-2"></i> تصدير تقرير الإجازات PDF
+                                </button>
+                                <button class="btn btn-outline-success mb-2">
+                                    <i class="fas fa-file-excel me-2"></i> تصدير تقرير الإجازات Excel
+                                </button>
+                                <button class="btn btn-outline-secondary">
+                                    <i class="fas fa-chart-pie me-2"></i> عرض إحصائيات الإجازات
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-12">
+                    <div class="card dashboard-card">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">التقارير الشهرية</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-4">
+                                <div class="col-md-6 mb-3">
+                                    <label for="reportMonth" class="form-label">اختر الشهر:</label>
+                                    <select class="form-select" id="reportMonth">
+                                        <option selected>يناير</option>
+                                        <option>فبراير</option>
+                                        <option>مارس</option>
+                                        <option>أبريل</option>
+                                        <option>مايو</option>
+                                        <option>يونيو</option>
+                                        <option>يوليو</option>
+                                        <option>أغسطس</option>
+                                        <option>سبتمبر</option>
+                                        <option>أكتوبر</option>
+                                        <option>نوفمبر</option>
+                                        <option>ديسمبر</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="reportYear" class="form-label">اختر السنة:</label>
+                                    <select class="form-select" id="reportYear">
+                                        <option>2023</option>
+                                        <option selected>2024</option>
+                                        <option>2025</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button class="btn btn-primary">
+                                    <i class="fas fa-download me-2"></i> تنزيل التقرير الشهري
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- صفحة الإدارة -->
+    <div id="admin" class="page-content">
+        <div class="container">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h2 class="section-title text-center">لوحة الإدارة</h2>
+                </div>
+            </div>
+            
+            <div class="row mb-4">
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="card dashboard-card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-users fa-3x mb-3 text-primary"></i>
+                            <h5>إدارة المستخدمين</h5>
+                            <p>إضافة، تعديل وحذف المستخدمين</p>
+                            <button class="btn btn-primary btn-sm">الدخول</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="card dashboard-card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-cog fa-3x mb-3 text-primary"></i>
+                            <h5>الإعدادات</h5>
+                            <p>تعديل إعدادات النظام العامة</p>
+                            <button class="btn btn-primary btn-sm">الدخول</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="card dashboard-card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-tasks fa-3x mb-3 text-primary"></i>
+                            <h5>الصلاحيات</h5>
+                            <p>إدارة صلاحيات المستخدمين</p>
+                            <button class="btn btn-primary btn-sm">الدخول</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="card dashboard-card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-history fa-3x mb-3 text-primary"></i>
+                            <h5>سجلات النظام</h5>
+                            <p>عرض سجلات أنشطة المستخدمين</p>
+                            <button class="btn btn-primary btn-sm">الدخول</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-12">
+                    <div class="card dashboard-card">
+                        <div class="card-header bg-dark text-white">
+                            <h5 class="mb-0">طلبات تحتاج الموافقة</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>نوع الطلب</th>
+                                            <th>اسم الموظف</th>
+                                            <th>القسم</th>
+                                            <th>التاريخ</th>
+                                            <th>الإجراءات</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>إجازة سنوية</td>
+                                            <td>أحمد محمد</td>
+                                            <td>التقنية</td>
+                                            <td>2023-10-15</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-success"><i class="fas fa-check"></i></button>
+                                                <button class="btn btn-sm btn-danger"><i class="fas fa-times"></i></button>
+                                                <button class="btn btn-sm btn-info"><i class="fas fa-eye"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>تصريح خروج</td>
+                                            <td>فاطمة عبدالله</td>
+                                            <td>الموارد البشرية</td>
+                                            <td>2023-10-16</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-success"><i class="fas fa-check"></i></button>
+                                                <button class="btn btn-sm btn-danger"><i class="fas fa-times"></i></button>
+                                                <button class="btn btn-sm btn-info"><i class="fas fa-eye"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>إجازة مرضية</td>
+                                            <td>خالد سعيد</td>
+                                            <td>المالية</td>
+                                            <td>2023-10-17</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-success"><i class="fas fa-check"></i></button>
+                                                <button class="btn btn-sm btn-danger"><i class="fas fa-times"></i></button>
+                                                <button class="btn btn-sm btn-info"><i class="fas fa-eye"></i></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- صفحة التسجيل -->
+    <div id="register" class="page-content">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6">
+                    <div class="form-container">
+                        <h2 class="section-title text-center">تسجيل مستخدم جديد</h2>
+                        
+                        <form>
+                            <div class="row mb-3">
+                                <div class="col-md-6 mb-3">
+                                    <label for="firstName" class="form-label">الاسم الأول</label>
+                                    <input type="text" class="form-control" id="firstName" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="lastName" class="form-label">اسم العائلة</label>
+                                    <input type="text" class="form-control" id="lastName" required>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="email" class="form-label">البريد الإلكتروني</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="department" class="form-label">القسم</label>
+                                <select class="form-select" id="department" required>
+                                    <option selected disabled value="">اختر القسم...</option>
+                                    <option>التقنية</option>
+                                    <option>الموارد البشرية</option>
+                                    <option>المالية</option>
+                                    <option>التسويق</option>
+                                    <option>المبيعات</option>
+                                    <option>الدعم الفني</option>
+                                </select>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-md-6 mb-3">
+                                    <label for="password" class="form-label">كلمة المرور</label>
+                                    <input type="password" class="form-control" id="password" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="confirmPassword" class="form-label">تأكيد كلمة المرور</label>
+                                    <input type="password" class="form-control" id="confirmPassword" required>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="agreeTerms" required>
+                                <label class="form-check-label" for="agreeTerms">أوافق على الشروط والأحكام</label>
+                            </div>
+                            
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg">تسجيل</button>
+                            </div>
+                            
+                            <div class="text-center mt-3">
+                                <p>هل لديك حساب بالفعل؟ <a href="#" onclick="showPage('login')">تسجيل الدخول</a></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center text-lg-start">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">نظام إدارة التصاريح والإجازات</h5>
+                    <p>نظام متكامل تم تطويره باستخدام أحدث التقنيات لتحسين إدارة طلبات التصاريح والإجازات في المؤسسات.</p>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">روابط سريعة</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white" onclick="showPage('home')">الرئيسية</a></li>
+                        <li><a href="#" class="text-white" onclick="showPage('permissions')">التصاريح</a></li>
+                        <li><a href="#" class="text-white" onclick="showPage('vacations')">الإجازات</a></li>
+                        <li><a href="#" class="text-white" onclick="showPage('reports')">التقارير</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">معلومات التواصل</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-envelope me-2"></i> info@permission-system.com</li>
+                        <li><i class="fas fa-phone me-2"></i> +966 12 345 6789</li>
+                        <li><i class="fas fa-map-marker-alt me-2"></i> الرياض، المملكة العربية السعودية</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="text-center p-3 mt-4" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2025 تم التطوير بواسطة: متدرب كمطور ويب كامل
         </div>
     </footer>
 
-    <div class="scroll-to-top" id="scrollToTop">
-        <i class="fas fa-arrow-up"></i>
-    </div>
-
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // دالة للتحويل بين الصفحات
+        function showPage(pageId) {
+            // إخفاء جميع الصفحات
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.classList.remove('active-page');
+            });
+            
+            // إظهار الصفحة المطلوبة
+            document.getElementById(pageId).classList.add('active-page');
+            
+            // تحديث حالة التنقل النشط
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // إضافة active للرابط المناسب (باستثناء صفحة التسجيل)
+            if (pageId !== 'register') {
+                const activeLink = document.querySelector(`a[onclick="showPage('${pageId}')"]`);
+                if (activeLink) activeLink.classList.add('active');
+            }
+            
+            // التمرير لأعلى الصفحة
+            window.scrollTo(0, 0);
+        }
+        
+        // تهيئة أولية
         document.addEventListener('DOMContentLoaded', function() {
-            // Scroll to top functionality
-            const scrollToTopBtn = document.getElementById('scrollToTop');
-            
-            window.addEventListener('scroll', function() {
-                if (window.pageYOffset > 300) {
-                    scrollToTopBtn.classList.add('show');
-                } else {
-                    scrollToTopBtn.classList.remove('show');
-                }
-            });
-            
-            scrollToTopBtn.addEventListener('click', function() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-            
-            // View buttons functionality
-            const viewButtons = document.querySelectorAll('.action-btn.view');
-            viewButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const row = this.closest('tr');
-                    const requestId = row.querySelector('td:first-child').textContent;
-                    alert(`عرض تفاصيل الطلب: ${requestId}`);
-                });
-            });
-
-            // Approve buttons functionality
-            const approveButtons = document.querySelectorAll('.action-btn.approve');
-            approveButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const row = this.closest('tr');
-                    const statusCell = row.querySelector('td:nth-child(5)');
-                    statusCell.innerHTML = '<span class="status status-approved"><i class="fas fa-check-circle"></i> موافق</span>';
-                    
-                    // Disable action buttons after approval
-                    const actionBtns = row.querySelector('.action-btns');
-                    actionBtns.innerHTML = '<button class="action-btn view"><i class="fas fa-eye"></i> عرض</button>';
-                    
-                    alert('تمت الموافقة على الطلب بنجاح');
-                });
-            });
-
-            // Reject buttons functionality
-            const rejectButtons = document.querySelectorAll('.action-btn.reject');
-            rejectButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const row = this.closest('tr');
-                    const statusCell = row.querySelector('td:nth-child(5)');
-                    statusCell.innerHTML = '<span class="status status-rejected"><i class="fas fa-times-circle"></i> مرفوض</span>';
-                    
-                    // Disable action buttons after rejection
-                    const actionBtns = row.querySelector('.action-btns');
-                    actionBtns.innerHTML = '<button class="action-btn view"><i class="fas fa-eye"></i> عرض</button>';
-                    
-                    alert('تم رفض الطلب بنجاح');
-                });
-            });
-            
-            // Smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        targetElement.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
+            // التأكد من أن الصفحة الرئيسية هي المعروضة عند التحميل
+            if (!document.querySelector('.page-content.active-page')) {
+                showPage('home');
+            }
         });
     </script>
 </body>

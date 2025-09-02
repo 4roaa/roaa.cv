@@ -46,6 +46,7 @@
             box-shadow: 3px 0 10px rgba(0, 0, 0, 0.1);
             transition: all 0.3s;
             z-index: 1000;
+            overflow-y: auto;
         }
         
         .sidebar .nav-link {
@@ -144,6 +145,22 @@
             border-bottom: 2px solid #eee;
         }
         
+        .action-buttons {
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .list-group-item:hover .action-buttons,
+        .expense-item:hover .action-buttons,
+        .d-flex.mb-4:hover .action-buttons {
+            opacity: 1;
+        }
+        
+        .btn-icon {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.875rem;
+        }
+        
         @media (max-width: 768px) {
             .sidebar {
                 width: 80px;
@@ -161,6 +178,10 @@
             
             .main-content {
                 margin-right: 80px;
+            }
+            
+            .action-buttons {
+                opacity: 1; /* إظهار أزرار الإجراءات على الجوال */
             }
         }
     </style>
@@ -320,34 +341,16 @@
                     <div class="card shadow h-100">
                         <div class="card-header py-3 d-flex justify-content-between align-items-center">
                             <h6 class="m-0 font-weight-bold text-primary">التقويم العائلي - الأحداث القادمة</h6>
-                            <a href="calendar.html" class="btn btn-sm btn-primary">عرض الكل</a>
+                            <div>
+                                <button class="btn btn-sm btn-primary me-2" data-bs-toggle="modal" data-bs-target="#addEventModal">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                                <a href="calendar.html" class="btn btn-sm btn-primary">عرض الكل</a>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="list-group" id="upcoming-events">
-                                <a href="#" class="list-group-item list-group-item-action family-event">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h6 class="mb-1">حفل عيد ميلاد أحمد</h6>
-                                        <small>غداً</small>
-                                    </div>
-                                    <p class="mb-1">الوقت: 5:00 مساءً</p>
-                                    <small>المكان: منزلنا</small>
-                                </a>
-                                <a href="#" class="list-group-item list-group-item-action family-event">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h6 class="mb-1">موعد طبيب سارة</h6>
-                                        <small>بعد غد</small>
-                                    </div>
-                                    <p class="mb-1">الوقت: 10:00 صباحاً</p>
-                                    <small>المكان: مستشفى المدينة</small>
-                                </a>
-                                <a href="#" class="list-group-item list-group-item-action family-event">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h6 class="mb-1">اجتماع أولياء الأمور</h6>
-                                        <small>الأسبوع القادم</small>
-                                    </div>
-                                    <p class="mb-1">الوقت: 3:00 مساءً</p>
-                                    <small>المكان: مدرسة النخيل</small>
-                                </a>
+                                <!-- سيتم ملء المحتوى ديناميكيًا -->
                             </div>
                         </div>
                     </div>
@@ -358,7 +361,12 @@
                     <div class="card shadow h-100">
                         <div class="card-header py-3 d-flex justify-content-between align-items-center">
                             <h6 class="m-0 font-weight-bold text-primary">إدارة المصروفات - ملخص الشهر</h6>
-                            <a href="expenses.html" class="btn btn-sm btn-primary">عرض الكل</a>
+                            <div>
+                                <button class="btn btn-sm btn-primary me-2" data-bs-toggle="modal" data-bs-target="#addExpenseModal">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                                <a href="expenses.html" class="btn btn-sm btn-primary">عرض الكل</a>
+                            </div>
                         </div>
                         <div class="card-body">
                             <h6 class="font-weight-bold">ميزانية الشهر الحالي</h6>
@@ -366,28 +374,8 @@
                                 <div class="progress-bar bg-success" role="progressbar" style="width: 65%" id="budget-progress"></div>
                             </div>
                             
-                            <div class="expense-item d-flex justify-content-between">
-                                <div>
-                                    <h6 class="mb-0">البقالة</h6>
-                                    <small class="text-muted">20 أكتوبر</small>
-                                </div>
-                                <span class="text-danger">- 320 ريال</span>
-                            </div>
-                            
-                            <div class="expense-item d-flex justify-content-between">
-                                <div>
-                                    <h6 class="mb-0">فواتير الكهرباء</h6>
-                                    <small class="text-muted">18 أكتوبر</small>
-                                </div>
-                                <span class="text-danger">- 240 ريال</span>
-                            </div>
-                            
-                            <div class="expense-item d-flex justify-content-between">
-                                <div>
-                                    <h6 class="mb-0">مصاريف الدراسة</h6>
-                                    <small class="text-muted">15 أكتوبر</small>
-                                </div>
-                                <span class="text-danger">- 450 ريال</span>
+                            <div id="expenses-list">
+                                <!-- سيتم ملء المحتوى ديناميكيًا -->
                             </div>
                         </div>
                     </div>
@@ -404,38 +392,7 @@
                         </div>
                         <div class="card-body">
                             <div class="chat-container" id="family-notes">
-                                <div class="d-flex mb-4">
-                                    <img src="https://ui-avatars.com/api/?name=الأب&background=4e73df&color=fff" class="family-img me-3">
-                                    <div class="flex-grow-1">
-                                        <div class="bg-light p-3 rounded">
-                                            <h6 class="mb-1">الأب</h6>
-                                            <p class="mb-0">لا تنسوا موعد الطبيب غداً الساعة 10 صباحاً</p>
-                                            <small class="text-muted">منذ ساعتين</small>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="d-flex mb-4">
-                                    <img src="https://ui-avatars.com/api/?name=الأم&background=6f42c1&color=fff" class="family-img me-3">
-                                    <div class="flex-grow-1">
-                                        <div class="bg-light p-3 rounded">
-                                            <h6 class="mb-1">الأم</h6>
-                                            <p class="mb-0">يجب شراء مستلزمات الدراسة للأطفال</p>
-                                            <small class="text-muted">منذ 5 ساعات</small>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="d-flex">
-                                    <img src="https://ui-avatars.com/api/?name=أحمد&background=1cc88a&color=fff" class="family-img me-3">
-                                    <div class="flex-grow-1">
-                                        <div class="bg-light p-3 rounded">
-                                            <h6 class="mb-1">أحمد</h6>
-                                            <p class="mb-0">أحتاج مساعدة في مشروع العلوم يوم السبت</p>
-                                            <small class="text-muted">منذ يوم</small>
-                                        </div>
-                                    </div>
-                                </div>
+                                <!-- سيتم ملء المحتوى ديناميكيًا -->
                             </div>
                         </div>
                     </div>
@@ -446,35 +403,16 @@
                     <div class="card shadow h-100">
                         <div class="card-header py-3 d-flex justify-content-between align-items-center">
                             <h6 class="m-0 font-weight-bold text-primary">أفراد العائلة</h6>
-                            <a href="members.html" class="btn btn-sm btn-primary">إدارة</a>
+                            <div>
+                                <button class="btn btn-sm btn-primary me-2" data-bs-toggle="modal" data-bs-target="#addMemberModal">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                                <a href="members.html" class="btn btn-sm btn-primary">إدارة</a>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="row text-center" id="family-members">
-                                <div class="col-4 mb-4">
-                                    <img src="https://ui-avatars.com/api/?name=الأب&background=4e73df&color=fff" class="family-img mb-2">
-                                    <h6>الأب</h6>
-                                    <small class="text-muted">مدير العائلة</small>
-                                </div>
-                                <div class="col-4 mb-4">
-                                    <img src="https://ui-avatars.com/api/?name=الأم&background=6f42c1&color=fff" class="family-img mb-2">
-                                    <h6>الأم</h6>
-                                    <small class="text-muted">إدارة المنزل</small>
-                                </div>
-                                <div class="col-4 mb-4">
-                                    <img src="https://ui-avatars.com/api/?name=أحمد&background=1cc88a&color=fff" class="family-img mb-2">
-                                    <h6>أحمد</h6>
-                                    <small class="text-muted">الابن</small>
-                                </div>
-                                <div class="col-4 mb-4">
-                                    <img src="https://ui-avatars.com/api/?name=سارة&background=e74a3b&color=fff" class="family-img mb-2">
-                                    <h6>سارة</h6>
-                                    <small class="text-muted">الابنة</small>
-                                </div>
-                                <div class="col-4 mb-4">
-                                    <img src="https://ui-avatars.com/api/?name=فاطمة&background=f6c23e&color=fff" class="family-img mb-2">
-                                    <h6>فاطمة</h6>
-                                    <small class="text-muted">الابنة</small>
-                                </div>
+                                <!-- سيتم ملء المحتوى ديناميكيًا -->
                             </div>
                         </div>
                     </div>
@@ -493,6 +431,7 @@
                 </div>
                 <div class="modal-body">
                     <form id="noteForm">
+                        <input type="hidden" id="noteId">
                         <div class="mb-3">
                             <label class="form-label">نص الملاحظة</label>
                             <textarea class="form-control" rows="3" id="noteText" required></textarea>
@@ -513,7 +452,130 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="button" class="btn btn-danger" id="deleteNote" style="display: none;">حذف</button>
                     <button type="button" class="btn btn-primary" id="saveNote">إضافة الملاحظة</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نموذج إضافة حدث -->
+    <div class="modal fade" id="addEventModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">إضافة حدث جديد</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="eventForm">
+                        <input type="hidden" id="eventId">
+                        <div class="mb-3">
+                            <label class="form-label">عنوان الحدث</label>
+                            <input type="text" class="form-control" id="eventTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">التاريخ</label>
+                            <input type="date" class="form-control" id="eventDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">الوقت</label>
+                            <input type="time" class="form-control" id="eventTime" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">المكان</label>
+                            <input type="text" class="form-control" id="eventLocation" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">الوصف</label>
+                            <textarea class="form-control" rows="3" id="eventDescription"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="button" class="btn btn-danger" id="deleteEvent" style="display: none;">حذف</button>
+                    <button type="button" class="btn btn-primary" id="saveEvent">إضافة الحدث</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نموذج إضافة مصروف -->
+    <div class="modal fade" id="addExpenseModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">إضافة مصروف جديد</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="expenseForm">
+                        <input type="hidden" id="expenseId">
+                        <div class="mb-3">
+                            <label class="form-label">الفئة</label>
+                            <select class="form-select" id="expenseCategory" required>
+                                <option value="">اختر الفئة</option>
+                                <option value="البقالة">البقالة</option>
+                                <option value="فواتير">فواتير</option>
+                                <option value="تعليم">تعليم</option>
+                                <option value="صحة">صحة</option>
+                                <option value="ترفيه">ترفيه</option>
+                                <option value="أخرى">أخرى</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">المبلغ (ريال)</label>
+                            <input type="number" class="form-control" id="expenseAmount" required min="1">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">التاريخ</label>
+                            <input type="date" class="form-control" id="expenseDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">الوصف</label>
+                            <textarea class="form-control" rows="3" id="expenseDescription"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="button" class="btn btn-danger" id="deleteExpense" style="display: none;">حذف</button>
+                    <button type="button" class="btn btn-primary" id="saveExpense">إضافة المصروف</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نموذج إضافة فرد -->
+    <div class="modal fade" id="addMemberModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">إضافة فرد جديد</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="memberForm">
+                        <input type="hidden" id="memberId">
+                        <div class="mb-3">
+                            <label class="form-label">الاسم</label>
+                            <input type="text" class="form-control" id="memberName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">الدور</label>
+                            <input type="text" class="form-control" id="memberRole" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">صورة (رابط)</label>
+                            <input type="url" class="form-control" id="memberImage">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="button" class="btn btn-danger" id="deleteMember" style="display: none;">حذف</button>
+                    <button type="button" class="btn btn-primary" id="saveMember">إضافة الفرد</button>
                 </div>
             </div>
         </div>
@@ -521,22 +583,22 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // بيانات التخزين المحلي (سيتم استبدالها بقاعدة بيانات في التطبيق الحقيقي)
+        // بيانات التخزين المحلي
         let familyData = JSON.parse(localStorage.getItem('familyData')) || {
             events: [
-                { id: 1, title: 'حفل عيد ميلاد أحمد', date: 'غداً', time: '5:00 مساءً', location: 'منزلنا' },
-                { id: 2, title: 'موعد طبيب سارة', date: 'بعد غد', time: '10:00 صباحاً', location: 'مستشفى المدينة' },
-                { id: 3, title: 'اجتماع أولياء الأمور', date: 'الأسبوع القادم', time: '3:00 مساءً', location: 'مدرسة النخيل' }
+                { id: 1, title: 'حفل عيد ميلاد أحمد', date: '2023-11-05', time: '17:00', location: 'منزلنا', description: '' },
+                { id: 2, title: 'موعد طبيب سارة', date: '2023-11-06', time: '10:00', location: 'مستشفى المدينة', description: '' },
+                { id: 3, title: 'اجتماع أولياء الأمور', date: '2023-11-10', time: '15:00', location: 'مدرسة النخيل', description: '' }
             ],
             expenses: [
-                { id: 1, category: 'البقالة', amount: 320, date: '20 أكتوبر' },
-                { id: 2, category: 'فواتير الكهرباء', amount: 240, date: '18 أكتوبر' },
-                { id: 3, category: 'مصاريف الدراسة', amount: 450, date: '15 أكتوبر' }
+                { id: 1, category: 'البقالة', amount: 320, date: '2023-10-20', description: '' },
+                { id: 2, category: 'فواتير الكهرباء', amount: 240, date: '2023-10-18', description: '' },
+                { id: 3, category: 'مصاريف الدراسة', amount: 450, date: '2023-10-15', description: '' }
             ],
             notes: [
-                { id: 1, author: 'الأب', content: 'لا تنسوا موعد الطبيب غداً الساعة 10 صباحاً', time: 'منذ ساعتين' },
-                { id: 2, author: 'الأم', content: 'يجب شراء مستلزمات الدراسة للأطفال', time: 'منذ 5 ساعات' },
-                { id: 3, author: 'أحمد', content: 'أحتاج مساعدة في مشروع العلوم يوم السبت', time: 'منذ يوم' }
+                { id: 1, author: 'الأب', content: 'لا تنسوا موعد الطبيب غداً الساعة 10 صباحاً', time: 'منذ ساعتين', priority: 'normal' },
+                { id: 2, author: 'الأم', content: 'يجب شراء مستلزمات الدراسة للأطفال', time: 'منذ 5 ساعات', priority: 'important' },
+                { id: 3, author: 'أحمد', content: 'أحتاج مساعدة في مشروع العلوم يوم السبت', time: 'منذ يوم', priority: 'normal' }
             ],
             members: [
                 { id: 1, name: 'الأب', role: 'مدير العائلة', image: 'https://ui-avatars.com/api/?name=الأب&background=4e73df&color=fff' },
@@ -553,6 +615,32 @@
             updateDashboard();
         }
 
+        // دالة لتنسيق التاريخ
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            
+            if (date.toDateString() === today.toDateString()) {
+                return 'اليوم';
+            } else if (date.toDateString() === tomorrow.toDateString()) {
+                return 'غداً';
+            } else {
+                const diffTime = Math.abs(date - today);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                
+                if (diffDays < 7) {
+                    return `بعد ${diffDays} أيام`;
+                } else if (diffDays < 30) {
+                    const weeks = Math.ceil(diffDays / 7);
+                    return `بعد ${weeks} أسابيع`;
+                } else {
+                    return date.toLocaleDateString('ar-EG');
+                }
+            }
+        }
+
         // دالة لتحديث لوحة التحكم
         function updateDashboard() {
             // تحديث الإحصائيات
@@ -567,29 +655,117 @@
             // تحديث الأحداث القادمة
             const eventsContainer = document.getElementById('upcoming-events');
             eventsContainer.innerHTML = '';
-            familyData.events.forEach(event => {
+            
+            // ترتيب الأحداث حسب التاريخ
+            const sortedEvents = [...familyData.events].sort((a, b) => new Date(a.date) - new Date(b.date));
+            
+            sortedEvents.slice(0, 3).forEach(event => {
+                const formattedDate = formatDate(event.date);
                 eventsContainer.innerHTML += `
-                    <a href="#" class="list-group-item list-group-item-action family-event">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h6 class="mb-1">${event.title}</h6>
-                            <small>${event.date}</small>
+                    <div class="list-group-item list-group-item-action family-event d-flex justify-content-between align-items-center">
+                        <div class="flex-grow-1">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">${event.title}</h6>
+                                <small>${formattedDate}</small>
+                            </div>
+                            <p class="mb-1">الوقت: ${event.time}</p>
+                            <small>المكان: ${event.location}</small>
                         </div>
-                        <p class="mb-1">الوقت: ${event.time}</p>
-                        <small>المكان: ${event.location}</small>
-                    </a>
+                        <div class="action-buttons">
+                            <button class="btn btn-sm btn-outline-primary btn-icon edit-event" data-id="${event.id}">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger btn-icon delete-event" data-id="${event.id}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
                 `;
+            });
+            
+            // إضافة مستمعي الأحداث لأزرار التعديل والحذف
+            document.querySelectorAll('.edit-event').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const eventId = parseInt(e.currentTarget.getAttribute('data-id'));
+                    editEvent(eventId);
+                });
+            });
+            
+            document.querySelectorAll('.delete-event').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const eventId = parseInt(e.currentTarget.getAttribute('data-id'));
+                    deleteEvent(eventId);
+                });
+            });
+            
+            // تحديث المصروفات
+            const expensesContainer = document.getElementById('expenses-list');
+            expensesContainer.innerHTML = '';
+            
+            // ترتيب المصروفات حسب التاريخ
+            const sortedExpenses = [...familyData.expenses].sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            sortedExpenses.slice(0, 3).forEach(expense => {
+                const expenseDate = new Date(expense.date);
+                const formattedDate = expenseDate.toLocaleDateString('ar-EG');
+                
+                expensesContainer.innerHTML += `
+                    <div class="expense-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-0">${expense.category}</h6>
+                            <small class="text-muted">${formattedDate}</small>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <span class="text-danger me-2">- ${expense.amount.toLocaleString()} ريال</span>
+                            <div class="action-buttons">
+                                <button class="btn btn-sm btn-outline-primary btn-icon edit-expense" data-id="${expense.id}">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger btn-icon delete-expense" data-id="${expense.id}">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            // إضافة مستمعي الأحداث لأزرار التعديل والحذف
+            document.querySelectorAll('.edit-expense').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const expenseId = parseInt(e.currentTarget.getAttribute('data-id'));
+                    editExpense(expenseId);
+                });
+            });
+            
+            document.querySelectorAll('.delete-expense').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const expenseId = parseInt(e.currentTarget.getAttribute('data-id'));
+                    deleteExpense(expenseId);
+                });
             });
             
             // تحديث الملاحظات
             const notesContainer = document.getElementById('family-notes');
             notesContainer.innerHTML = '';
-            familyData.notes.forEach(note => {
+            
+            familyData.notes.slice(0, 3).forEach(note => {
                 notesContainer.innerHTML += `
                     <div class="d-flex mb-4">
                         <img src="https://ui-avatars.com/api/?name=${note.author}&background=4e73df&color=fff" class="family-img me-3">
-                        <div class="flex-grow-1">
+                        <div class="flex-grow-1 position-relative">
                             <div class="bg-light p-3 rounded">
-                                <h6 class="mb-1">${note.author}</h6>
+                                <div class="d-flex justify-content-between">
+                                    <h6 class="mb-1">${note.author}</h6>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-sm btn-outline-primary btn-icon edit-note" data-id="${note.id}">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-danger btn-icon delete-note" data-id="${note.id}">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
                                 <p class="mb-0">${note.content}</p>
                                 <small class="text-muted">${note.time}</small>
                             </div>
@@ -598,35 +774,295 @@
                 `;
             });
             
+            // إضافة مستمعي الأحداث لأزرار التعديل والحذف
+            document.querySelectorAll('.edit-note').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const noteId = parseInt(e.currentTarget.getAttribute('data-id'));
+                    editNote(noteId);
+                });
+            });
+            
+            document.querySelectorAll('.delete-note').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const noteId = parseInt(e.currentTarget.getAttribute('data-id'));
+                    deleteNote(noteId);
+                });
+            });
+            
             // تحديث أفراد العائلة
             const membersContainer = document.getElementById('family-members');
             membersContainer.innerHTML = '';
+            
             familyData.members.forEach(member => {
                 membersContainer.innerHTML += `
-                    <div class="col-4 mb-4">
+                    <div class="col-4 mb-4 position-relative">
+                        <div class="action-buttons position-absolute top-0 end-0 mt-2 me-2">
+                            <button class="btn btn-sm btn-outline-primary btn-icon edit-member" data-id="${member.id}">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger btn-icon delete-member" data-id="${member.id}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
                         <img src="${member.image}" class="family-img mb-2">
                         <h6>${member.name}</h6>
                         <small class="text-muted">${member.role}</small>
                     </div>
                 `;
             });
+            
+            // إضافة مستمعي الأحداث لأزرار التعديل والحذف
+            document.querySelectorAll('.edit-member').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const memberId = parseInt(e.currentTarget.getAttribute('data-id'));
+                    editMember(memberId);
+                });
+            });
+            
+            document.querySelectorAll('.delete-member').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const memberId = parseInt(e.currentTarget.getAttribute('data-id'));
+                    deleteMember(memberId);
+                });
+            });
         }
 
-        // إضافة ملاحظة جديدة
+        // دالة تحرير حدث
+        function editEvent(id) {
+            const event = familyData.events.find(e => e.id === id);
+            if (event) {
+                document.getElementById('eventId').value = event.id;
+                document.getElementById('eventTitle').value = event.title;
+                document.getElementById('eventDate').value = event.date;
+                document.getElementById('eventTime').value = event.time;
+                document.getElementById('eventLocation').value = event.location;
+                document.getElementById('eventDescription').value = event.description || '';
+                
+                document.getElementById('deleteEvent').style.display = 'inline-block';
+                document.getElementById('saveEvent').textContent = 'تحديث الحدث';
+                
+                const modal = new bootstrap.Modal(document.getElementById('addEventModal'));
+                modal.show();
+            }
+        }
+
+        // دالة حذف حدث
+        function deleteEvent(id) {
+            if (confirm('هل أنت متأكد من حذف هذا الحدث؟')) {
+                familyData.events = familyData.events.filter(e => e.id !== id);
+                saveData();
+            }
+        }
+
+        // دالة تحرير مصروف
+        function editExpense(id) {
+            const expense = familyData.expenses.find(e => e.id === id);
+            if (expense) {
+                document.getElementById('expenseId').value = expense.id;
+                document.getElementById('expenseCategory').value = expense.category;
+                document.getElementById('expenseAmount').value = expense.amount;
+                document.getElementById('expenseDate').value = expense.date;
+                document.getElementById('expenseDescription').value = expense.description || '';
+                
+                document.getElementById('deleteExpense').style.display = 'inline-block';
+                document.getElementById('saveExpense').textContent = 'تحديث المصروف';
+                
+                const modal = new bootstrap.Modal(document.getElementById('addExpenseModal'));
+                modal.show();
+            }
+        }
+
+        // دالة حذف مصروف
+        function deleteExpense(id) {
+            if (confirm('هل أنت متأكد من حذف هذا المصروف؟')) {
+                familyData.expenses = familyData.expenses.filter(e => e.id !== id);
+                saveData();
+            }
+        }
+
+        // دالة تحرير ملاحظة
+        function editNote(id) {
+            const note = familyData.notes.find(n => n.id === id);
+            if (note) {
+                document.getElementById('noteId').value = note.id;
+                document.getElementById('noteText').value = note.content;
+                document.getElementById('notePriority').value = note.priority;
+                
+                document.getElementById('deleteNote').style.display = 'inline-block';
+                document.getElementById('saveNote').textContent = 'تحديث الملاحظة';
+                
+                const modal = new bootstrap.Modal(document.getElementById('addNoteModal'));
+                modal.show();
+            }
+        }
+
+        // دالة حذف ملاحظة
+        function deleteNote(id) {
+            if (confirm('هل أنت متأكد من حذف هذه الملاحظة؟')) {
+                familyData.notes = familyData.notes.filter(n => n.id !== id);
+                saveData();
+            }
+        }
+
+        // دالة تحرير فرد
+        function editMember(id) {
+            const member = familyData.members.find(m => m.id === id);
+            if (member) {
+                document.getElementById('memberId').value = member.id;
+                document.getElementById('memberName').value = member.name;
+                document.getElementById('memberRole').value = member.role;
+                document.getElementById('memberImage').value = member.image;
+                
+                document.getElementById('deleteMember').style.display = 'inline-block';
+                document.getElementById('saveMember').textContent = 'تحديث الفرد';
+                
+                const modal = new bootstrap.Modal(document.getElementById('addMemberModal'));
+                modal.show();
+            }
+        }
+
+        // دالة حذف فرد
+        function deleteMember(id) {
+            if (confirm('هل أنت متأكد من حذف هذا الفرد؟')) {
+                familyData.members = familyData.members.filter(m => m.id !== id);
+                saveData();
+            }
+        }
+
+        // إضافة/تحديث حدث
+        document.getElementById('saveEvent').addEventListener('click', function() {
+            const eventId = document.getElementById('eventId').value;
+            const title = document.getElementById('eventTitle').value;
+            const date = document.getElementById('eventDate').value;
+            const time = document.getElementById('eventTime').value;
+            const location = document.getElementById('eventLocation').value;
+            const description = document.getElementById('eventDescription').value;
+            
+            if (title && date && time && location) {
+                if (eventId) {
+                    // تحديث حدث موجود
+                    const index = familyData.events.findIndex(e => e.id === parseInt(eventId));
+                    if (index !== -1) {
+                        familyData.events[index] = {
+                            ...familyData.events[index],
+                            title,
+                            date,
+                            time,
+                            location,
+                            description
+                        };
+                    }
+                } else {
+                    // إضافة حدث جديد
+                    const newEvent = {
+                        id: familyData.events.length > 0 ? Math.max(...familyData.events.map(e => e.id)) + 1 : 1,
+                        title,
+                        date,
+                        time,
+                        location,
+                        description
+                    };
+                    
+                    familyData.events.push(newEvent);
+                }
+                
+                saveData();
+                
+                // إغلاق النموذج
+                const modal = bootstrap.Modal.getInstance(document.getElementById('addEventModal'));
+                modal.hide();
+                
+                // إعادة تعيين النموذج
+                document.getElementById('eventForm').reset();
+                document.getElementById('eventId').value = '';
+                document.getElementById('deleteEvent').style.display = 'none';
+                document.getElementById('saveEvent').textContent = 'إضافة الحدث';
+            } else {
+                alert('يرجى ملء جميع الحقول المطلوبة');
+            }
+        });
+
+        // إضافة/تحديث مصروف
+        document.getElementById('saveExpense').addEventListener('click', function() {
+            const expenseId = document.getElementById('expenseId').value;
+            const category = document.getElementById('expenseCategory').value;
+            const amount = parseFloat(document.getElementById('expenseAmount').value);
+            const date = document.getElementById('expenseDate').value;
+            const description = document.getElementById('expenseDescription').value;
+            
+            if (category && amount && date) {
+                if (expenseId) {
+                    // تحديث مصروف موجود
+                    const index = familyData.expenses.findIndex(e => e.id === parseInt(expenseId));
+                    if (index !== -1) {
+                        familyData.expenses[index] = {
+                            ...familyData.expenses[index],
+                            category,
+                            amount,
+                            date,
+                            description
+                        };
+                    }
+                } else {
+                    // إضافة مصروف جديد
+                    const newExpense = {
+                        id: familyData.expenses.length > 0 ? Math.max(...familyData.expenses.map(e => e.id)) + 1 : 1,
+                        category,
+                        amount,
+                        date,
+                        description
+                    };
+                    
+                    familyData.expenses.push(newExpense);
+                }
+                
+                saveData();
+                
+                // إغلاق النموذج
+                const modal = bootstrap.Modal.getInstance(document.getElementById('addExpenseModal'));
+                modal.hide();
+                
+                // إعادة تعيين النموذج
+                document.getElementById('expenseForm').reset();
+                document.getElementById('expenseId').value = '';
+                document.getElementById('deleteExpense').style.display = 'none';
+                document.getElementById('saveExpense').textContent = 'إضافة المصروف';
+            } else {
+                alert('يرجى ملء جميع الحقول المطلوبة');
+            }
+        });
+
+        // إضافة/تحديث ملاحظة
         document.getElementById('saveNote').addEventListener('click', function() {
-            const noteText = document.getElementById('noteText').value;
-            const notePriority = document.getElementById('notePriority').value;
+            const noteId = document.getElementById('noteId').value;
+            const content = document.getElementById('noteText').value;
+            const priority = document.getElementById('notePriority').value;
             const notifyAll = document.getElementById('notifyAll').checked;
             
-            if (noteText) {
-                const newNote = {
-                    id: familyData.notes.length + 1,
-                    author: 'الأب', // المستخدم الحالي
-                    content: noteText,
-                    time: 'الآن'
-                };
+            if (content) {
+                if (noteId) {
+                    // تحديث ملاحظة موجودة
+                    const index = familyData.notes.findIndex(n => n.id === parseInt(noteId));
+                    if (index !== -1) {
+                        familyData.notes[index] = {
+                            ...familyData.notes[index],
+                            content,
+                            priority
+                        };
+                    }
+                } else {
+                    // إضافة ملاحظة جديدة
+                    const newNote = {
+                        id: familyData.notes.length > 0 ? Math.max(...familyData.notes.map(n => n.id)) + 1 : 1,
+                        author: 'الأب', // المستخدم الحالي
+                        content,
+                        time: 'الآن',
+                        priority
+                    };
+                    
+                    familyData.notes.unshift(newNote);
+                }
                 
-                familyData.notes.unshift(newNote);
                 saveData();
                 
                 // إغلاق النموذج
@@ -635,29 +1071,134 @@
                 
                 // إعادة تعيين النموذج
                 document.getElementById('noteForm').reset();
+                document.getElementById('noteId').value = '';
+                document.getElementById('deleteNote').style.display = 'none';
+                document.getElementById('saveNote').textContent = 'إضافة الملاحظة';
+                
+                if (notifyAll) {
+                    alert('تم إشعار جميع أفراد العائلة بالملاحظة');
+                }
             } else {
                 alert('يرجى إدخال نص الملاحظة');
             }
         });
 
+        // إضافة/تحديث فرد
+        document.getElementById('saveMember').addEventListener('click', function() {
+            const memberId = document.getElementById('memberId').value;
+            const name = document.getElementById('memberName').value;
+            const role = document.getElementById('memberRole').value;
+            let image = document.getElementById('memberImage').value;
+            
+            if (!image) {
+                image = `https://ui-avatars.com/api/?name=${name}&background=4e73df&color=fff`;
+            }
+            
+            if (name && role) {
+                if (memberId) {
+                    // تحديث فرد موجود
+                    const index = familyData.members.findIndex(m => m.id === parseInt(memberId));
+                    if (index !== -1) {
+                        familyData.members[index] = {
+                            ...familyData.members[index],
+                            name,
+                            role,
+                            image
+                        };
+                    }
+                } else {
+                    // إضافة فرد جديد
+                    const newMember = {
+                        id: familyData.members.length > 0 ? Math.max(...familyData.members.map(m => m.id)) + 1 : 1,
+                        name,
+                        role,
+                        image
+                    };
+                    
+                    familyData.members.push(newMember);
+                }
+                
+                saveData();
+                
+                // إغلاق النموذج
+                const modal = bootstrap.Modal.getInstance(document.getElementById('addMemberModal'));
+                modal.hide();
+                
+                // إعادة تعيين النموذج
+                document.getElementById('memberForm').reset();
+                document.getElementById('memberId').value = '';
+                document.getElementById('deleteMember').style.display = 'none';
+                document.getElementById('saveMember').textContent = 'إضافة الفرد';
+            } else {
+                alert('يرجى ملء جميع الحقول المطلوبة');
+            }
+        });
+
+        // حذف حدث
+        document.getElementById('deleteEvent').addEventListener('click', function() {
+            const eventId = document.getElementById('eventId').value;
+            if (eventId) {
+                deleteEvent(parseInt(eventId));
+                const modal = bootstrap.Modal.getInstance(document.getElementById('addEventModal'));
+                modal.hide();
+            }
+        });
+
+        // حذف مصروف
+        document.getElementById('deleteExpense').addEventListener('click', function() {
+            const expenseId = document.getElementById('expenseId').value;
+            if (expenseId) {
+                deleteExpense(parseInt(expenseId));
+                const modal = bootstrap.Modal.getInstance(document.getElementById('addExpenseModal'));
+                modal.hide();
+            }
+        });
+
+        // حذف ملاحظة
+        document.getElementById('deleteNote').addEventListener('click', function() {
+            const noteId = document.getElementById('noteId').value;
+            if (noteId) {
+                deleteNote(parseInt(noteId));
+                const modal = bootstrap.Modal.getInstance(document.getElementById('addNoteModal'));
+                modal.hide();
+            }
+        });
+
+        // حذف فرد
+        document.getElementById('deleteMember').addEventListener('click', function() {
+            const memberId = document.getElementById('memberId').value;
+            if (memberId) {
+                deleteMember(parseInt(memberId));
+                const modal = bootstrap.Modal.getInstance(document.getElementById('addMemberModal'));
+                modal.hide();
+            }
+        });
+
+        // إعادة تعيين النماذج عند إغلاقها
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('hidden.bs.modal', function () {
+                const forms = this.querySelectorAll('form');
+                forms.forEach(form => form.reset());
+                
+                const hiddenFields = this.querySelectorAll('input[type="hidden"]');
+                hiddenFields.forEach(field => field.value = '');
+                
+                const deleteButtons = this.querySelectorAll('.btn-danger');
+                deleteButtons.forEach(button => button.style.display = 'none');
+                
+                const saveButtons = this.querySelectorAll('.btn-primary');
+                saveButtons.forEach(button => {
+                    if (button.id === 'saveEvent') button.textContent = 'إضافة الحدث';
+                    if (button.id === 'saveExpense') button.textContent = 'إضافة المصروف';
+                    if (button.id === 'saveNote') button.textContent = 'إضافة الملاحظة';
+                    if (button.id === 'saveMember') button.textContent = 'إضافة الفرد';
+                });
+            });
+        });
+
         // تهيئة البيانات عند تحميل الصفحة
         document.addEventListener('DOMContentLoaded', function() {
             updateDashboard();
-            
-            // محاكاة جلب البيانات من قاعدة البيانات
-            console.log('جاري تحميل البيانات من قاعدة البيانات...');
-            
-            // هنا سيتم إضافة كود الاتصال بقاعدة البيانات باستخدام PHP وMySQL
-            // مثال:
-            /*
-            fetch('get_dashboard_data.php')
-                .then(response => response.json())
-                .then(data => {
-                    familyData = data;
-                    updateDashboard();
-                })
-                .catch(error => console.error('Error:', error));
-            */
         });
     </script>
 </body>
